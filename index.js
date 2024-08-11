@@ -2,6 +2,7 @@ import express from 'express'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { facebook } from './exports/facebook.js' // Import the function
+import http from 'http'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -32,6 +33,23 @@ app.get('/facebook', async (req, res) => {
  res.status(result.status).json(result)
 })
 
+function keepalive(url, interval = 1000) {
+ setInterval(() => {
+  http
+   .get(url, res => {
+    if (res.statusCode === 200) {
+     console.log(`${new Date().toISOString()} - Successfully pinged ${url}`)
+    } else {
+     console.warn(`${new Date().toISOString()} - Received status code ${res.statusCode} from ${url}`)
+    }
+   })
+   .on('error', err => {
+    console.error(`${new Date().toISOString()} - Failed to ping ${url}: ${err.message}`)
+   })
+ }, interval)
+}
 app.listen(port, () => {
  console.log(`Server is running on http://localhost:${port}`)
 })
+const serverUrl = `http://localhost:${port}`
+keepalive(serverUrl)
