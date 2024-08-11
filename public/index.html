@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Astro Api</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+ </head>
+ <body>
+  <div class="loader"></div>
+  <div class="content" style="display: none">
+   <header>
+    <h1>Astro Api</h1>
+    <div id="runtime-box">
+     <p>Runtime API Server</p>
+     <p id="runtime">Loading...</p>
+    </div>
+   </header>
+
+   <!-- Social Media Section -->
+   <section class="api-section">
+    <h2>Social Media</h2>
+    <div class="social-media-list">
+     <div class="list-item">
+      <div class="title">Facebook</div>
+      <div class="description">Download Facebook videos</div>
+      <div class="usage"><button onclick="window.open('http://localhost:3000/facebook?url=', '_blank')">Check</button></div>
+     </div>
+     <div class="list-item">
+      <div class="title">Instagram</div>
+      <div class="description">Download Instagram posts</div>
+      <div class="usage"><button>Check</button></div>
+     </div>
+     <div class="list-item">
+      <div class="title">Twitter</div>
+      <div class="description">Download Twitter videos</div>
+      <div class="usage"><button>Check</button></div>
+     </div>
+     <div class="list-item">
+      <div class="title">LinkedIn</div>
+      <div class="description">Download LinkedIn posts</div>
+      <div class="usage"><button>Check</button></div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Misc Section -->
+   <section class="api-section">
+    <h2>Misc</h2>
+    <div class="misc-list">
+     <div class="list-item">
+      <div class="title">Weather</div>
+      <div class="description">Get current weather info</div>
+      <div class="usage">
+       <button onclick="window.open('/', '_blank')">Check</button>
+      </div>
+     </div>
+     <div class="list-item">
+      <div class="title">Tools</div>
+      <div class="description">Access various tools</div>
+      <div class="usage"><button>Check</button></div>
+     </div>
+    </div>
+   </section>
+
+   <!-- News Section -->
+   <section class="api-section">
+    <h2>News</h2>
+    <div class="news-list">
+     <div class="list-item">
+      <div class="title">CNN API</div>
+      <div class="description">Get the latest news from CNN</div>
+      <div class="usage"><button>Check</button></div>
+     </div>
+     <div class="list-item">
+      <div class="title">More</div>
+      <div class="description">Explore more news sources</div>
+      <div class="usage"><button>Check</button></div>
+     </div>
+    </div>
+   </section>
+  </div>
+
+  <script>
+   // Loader function
+   window.addEventListener('load', () => {
+    setTimeout(() => {
+     document.querySelector('.loader').style.display = 'none'
+     document.querySelector('.content').style.display = 'block'
+
+     // Update runtime every second
+     const updateRuntime = () => {
+      fetch('/runtime')
+       .then(response => response.text())
+       .then(data => {
+        document.getElementById('runtime').textContent = data
+       })
+     }
+
+     updateRuntime()
+     setInterval(updateRuntime, 1000) // Update every second
+    }, 5000) // 5 seconds loader
+   })
+  </script>
+ </body>
+</html>

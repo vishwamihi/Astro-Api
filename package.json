@@ -1,0 +1,29 @@
+{
+ "name": "astro-api",
+ "version": "1.0.0",
+ "description": "A Simple Web Api to Fetch Important Data & Results For Node Js Applications",
+ "main": "index.js",
+ "type": "module",
+ "scripts": {
+  "test": "echo \"Error: no test specified\" && exit 1",
+  "start": "node index.js"
+ },
+ "repository": {
+  "type": "git",
+  "url": "git+https://github.com/FXastro/Astro-Api.git"
+ },
+ "keywords": [
+  "Api",
+  "Express",
+  "Node",
+  "Js",
+  "Javascript",
+  "Astro"
+ ],
+ "author": "FXastro",
+ "license": "MIT",
+ "bugs": {
+  "url": "https://github.com/FXastro/Astro-Api/issues"
+ },
+ "homepage": "https://github.com/FXastro/Astro-Api#readme"
+}
