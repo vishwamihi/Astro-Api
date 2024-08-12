@@ -1,3 +1,9 @@
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+
+import dotenv from 'dotenv'
+dotenv.config({ path: path.join(__dirname, '.env') })
+
 import express from 'express'
 import path from 'path'
 import http from 'http'
@@ -14,10 +20,9 @@ import { wikimedia } from './exports/wikimedia.js'
 import { GoogleSearch } from './exports/google.js'
 import { fetchWeatherData } from './exports/weather.js'
 //=====================================================
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+
 const app = express()
-const port = 3000
+const port = process.env.PORT
 const startTime = Date.now()
 
 app.use(express.static(path.join(__dirname, 'public')))

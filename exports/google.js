@@ -9,7 +9,7 @@ export async function GoogleSearch(query) {
    results,
   }
  } catch (error) {
-  console.error('Error performing Google search:', error)
+ // console.error('Error performing Google search:', error)
   return {
    Creator: 'Astro',
    status: 500,
