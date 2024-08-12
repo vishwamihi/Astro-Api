@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Documentation | API</title>
+  <link rel="stylesheet" href="./css/api.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/176591771?v=4" type="image/x-icon" />
+ </head>
+ <body>
+  <div class="loader"></div>
+  <div class="content" style="display: none">
+   <header>
+    <div id="runtime-box">
+     <p>Runtime API Server</p>
+     <p id="runtime">Loading...</p>
+    </div>
+   </header>
+
+   <!-- Social Media Section -->
+   <section class="api-section">
+    <h2>Social Media</h2>
+    <div class="social-media-list">
+     <div class="list-item">
+      <div class="title">Facebook</div>
+      <div class="description">Download Facebook media</div>
+      <div class="usage">
+       <button><a href="/facebook?url=https://www.facebook.com/100069007765318/posts/725316089778643/?mibextid=rS40aB7S9Ucbxw6v">Check</a></button>
+      </div>
+     </div>
+     <div class="list-item">
+      <div class="title">Youtube</div>
+      <div class="description">Download Youtube media</div>
+      <div class="usage">
+       <button><a href="/youtube?url=https://youtu.be/xozgvccBHk8?si=91PFTHJthOVRUSS-">Check</a></button>
+      </div>
+     </div>
+     <div class="list-item">
+      <div class="title">Pinterest</div>
+      <div class="description">Download Pinterest media</div>
+      <div class="usage">
+       <button><a href="/pinterest?query=cats">Check</a></button>
+      </div>
+     </div>
+     <div class="list-item">
+      <div class="title">Tiktok</div>
+      <div class="description">Download Tiktok media</div>
+      <div class="usage">
+       <button><a href="/tiktok?url=https://www.tiktok.com/@brainjotter/video/7393109337524178181?is_from_webapp=1&sender_device=pc&web_id=7402142833056220677">Check</a></button>
+      </div>
+     </div>
+     <div class="list-item">
+      <div class="title">Twitter</div>
+      <div class="description">Download Twitter media</div>
+      <div class="usage">
+       <button><a href="/twitter?url=https://twitter.com/elonmusk/status/1822355008559489216?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Etweet">Check</a></button>
+      </div>
+     </div>
+     <div class="list-item">
+      <div class="title">Instagram</div>
+      <div class="description">Download Instagram media</div>
+      <div class="usage">
+       <button><a href="/instagram?url=https://www.instagram.com/reel/C9bjQfRprHK/?img_index=we.are.messi">Check</a></button>
+      </div>
+     </div>
+    </div>
+   </section>
+
+   <!-- Misc Section -->
+   <section class="api-section">
+    <h2>Misc</h2>
+    <div class="misc-list">
+     <div class="list-item">
+      <div class="title">Weather</div>
+      <div class="description">Get current weather info</div>
+      <div class="usage">
+       <button onclick="window.open('/', '_blank')">Check</button>
+      </div>
+     </div>
+     <div class="list-item">
+      <div class="title">Tools</div>
+      <div class="description">Access various tools</div>
+      <div class="usage"><button>Check</button></div>
+     </div>
+    </div>
+   </section>
+
+   <!-- News Section -->
+   <section class="api-section">
+    <h2>News</h2>
+    <div class="news-list">
+     <div class="list-item">
+      <div class="title">CNN API</div>
+      <div class="description">Get the latest news from CNN</div>
+      <div class="usage"><button>Check</button></div>
+     </div>
+     <div class="list-item">
+      <div class="title">More</div>
+      <div class="description">Explore more news sources</div>
+      <div class="usage"><button>Check</button></div>
+     </div>
+    </div>
+   </section>
+  </div>
+
+  <script>
+   // Loader function
+   window.addEventListener('load', () => {
+    setTimeout(() => {
+     document.querySelector('.loader').style.display = 'none'
+     document.querySelector('.content').style.display = 'block'
+
+     // Update runtime every second
+     const updateRuntime = () => {
+      fetch('/runtime')
+       .then(response => response.text())
+       .then(data => {
+        document.getElementById('runtime').textContent = data
+       })
+     }
+
+     updateRuntime()
+     setInterval(updateRuntime, 1000) // Update every second
+    }, 5000) // 5 seconds loader
+   })
+  </script>
+ </body>
+</html>

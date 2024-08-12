@@ -1,6 +1,7 @@
+// File: exports/youtube.js
 import fetch from 'node-fetch'
 
-export async function instagram(url) {
+export async function youtube(url) {
  try {
   const BASE_URL = 'https://cobalt.tools'
   const BASE_API = 'https://api.cobalt.tools/api'

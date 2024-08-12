@@ -3,105 +3,33 @@
  <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Astro Api</title>
-  <link rel="stylesheet" href="/styles.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <title>API DOCS</title>
+  <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/176591771?v=4" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet" />
+  <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/176591771?v=4" type="image/x-icon" />
+  <link rel="stylesheet" href="./css/index.css">
  </head>
  <body>
-  <div class="loader"></div>
-  <div class="content" style="display: none">
-   <header>
-    <h1>Astro Api</h1>
-    <div id="runtime-box">
-     <p>Runtime API Server</p>
-     <p id="runtime">Loading...</p>
-    </div>
-   </header>
-
-   <!-- Social Media Section -->
-   <section class="api-section">
-    <h2>Social Media</h2>
-    <div class="social-media-list">
-     <div class="list-item">
-      <div class="title">Facebook</div>
-      <div class="description">Download Facebook videos</div>
-      <div class="usage"><button><a href="/facebook?url=">Check</a></button></div>
-     </div>
-     <div class="list-item">
-      <div class="title">Instagram</div>
-      <div class="description">Download Instagram posts</div>
-      <div class="usage"><button>Check</button></div>
-     </div>
-     <div class="list-item">
-      <div class="title">Twitter</div>
-      <div class="description">Download Twitter videos</div>
-      <div class="usage"><button>Check</button></div>
-     </div>
-     <div class="list-item">
-      <div class="title">LinkedIn</div>
-      <div class="description">Download LinkedIn posts</div>
-      <div class="usage"><button>Check</button></div>
-     </div>
-    </div>
-   </section>
-
-   <!-- Misc Section -->
-   <section class="api-section">
-    <h2>Misc</h2>
-    <div class="misc-list">
-     <div class="list-item">
-      <div class="title">Weather</div>
-      <div class="description">Get current weather info</div>
-      <div class="usage">
-       <button onclick="window.open('/', '_blank')">Check</button>
-      </div>
-     </div>
-     <div class="list-item">
-      <div class="title">Tools</div>
-      <div class="description">Access various tools</div>
-      <div class="usage"><button>Check</button></div>
-     </div>
-    </div>
-   </section>
-
-   <!-- News Section -->
-   <section class="api-section">
-    <h2>News</h2>
-    <div class="news-list">
-     <div class="list-item">
-      <div class="title">CNN API</div>
-      <div class="description">Get the latest news from CNN</div>
-      <div class="usage"><button>Check</button></div>
-     </div>
-     <div class="list-item">
-      <div class="title">More</div>
-      <div class="description">Explore more news sources</div>
-      <div class="usage"><button>Check</button></div>
-     </div>
-    </div>
-   </section>
+  <div id="runtime"></div>
+  <div class="container">
+   <h1>API DOCS</h1>
+   <button><a href="api.html">GET API</a></button>
   </div>
-
+  <script src="/socket.io/socket.io.js"></script>
   <script>
-   // Loader function
-   window.addEventListener('load', () => {
-    setTimeout(() => {
-     document.querySelector('.loader').style.display = 'none'
-     document.querySelector('.content').style.display = 'block'
-
-     // Update runtime every second
-     const updateRuntime = () => {
-      fetch('/runtime')
-       .then(response => response.text())
-       .then(data => {
-        document.getElementById('runtime').textContent = data
-       })
-     }
-
-     updateRuntime()
-     setInterval(updateRuntime, 1000) // Update every second
-    }, 5000) // 5 seconds loader
-   })
+   function updateRuntime() {
+    fetch('/runtime')
+     .then(response => response.text())
+     .then(runtime => {
+      const runtimeDisplay = document.getElementById('runtime')
+      runtimeDisplay.textContent = `Server Runtime: ${runtime}`
+     })
+     .catch(error => console.error('Error fetching runtime:', error))
+   }
+   updateRuntime()
+   setInterval(updateRuntime, 1000)
   </script>
  </body>
 </html>

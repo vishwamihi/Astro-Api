@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
 
-export async function instagram(url) {
+export async function tiktok(url) {
  try {
   const BASE_URL = 'https://cobalt.tools'
   const BASE_API = 'https://api.cobalt.tools/api'
