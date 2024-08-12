@@ -1,12 +1,5 @@
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
-import rateLimit from 'express-rate-limit';
-
-const rateLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  message: 'Too many requests from this IP, please try again later.'
-});
 
 import dotenv from 'dotenv'
 dotenv.config({ path: path.join(__dirname, '.env') })
@@ -380,7 +373,7 @@ function keepalive(url, interval = 1000) {
     http
       .get(url, (res) => {
         if (res.statusCode === 200) {
-          //   console.log(`${new Date().toISOString()} - Successfully pinged ${url}`)
+     console.log(`${new Date().toISOString()} - Successfully pinged ${url}`)
         } else {
           console.warn(`${new Date().toISOString()} - Received status code ${res.statusCode} from ${url}`)
         }
@@ -390,8 +383,6 @@ function keepalive(url, interval = 1000) {
       })
   }, interval)
 }
-
-app.use(rateLimiter);
 
 app.use((req, res, next) => {
   res.status(404).sendFile(path.join(__dirname, 'public/404/index.html'))
