@@ -10,17 +10,18 @@ import http from 'http'
 import { fileURLToPath } from 'url'
 
 //====================================================
-import { facebook } from './exports/facebook.js'
-import { youtube } from './exports/youtube.js'
-import { instagram } from './exports/instagram.js'
-import { twitter } from './exports/twitter.js'
-import { tiktok } from './exports/tiktok.js'
-import { pinterest } from './exports/pinterest.js'
-import { wikimedia } from './exports/wikimedia.js'
-import { GoogleSearch } from './exports/google.js'
-import { fetchWeatherData } from './exports/weather.js'
-import { randomJoke } from './exports/jokes.js'
-import { fetchChatGPTData } from './exports/chatGpt4.js'
+import { facebook } from './exports/download/facebook.js'
+import { youtube } from './exports/download/youtube.js'
+import { instagram } from './exports/download/instagram.js'
+import { twitter } from './exports/download/twitter.js'
+import { tiktok } from './exports/download/tiktok.js'
+import { pinterest } from './exports/download/pinterest.js'
+import { wikimedia } from './exports/search/wikimedia.js'
+import { GoogleSearch } from './exports/search/google.js'
+import { fetchWeatherData } from './exports/search/weather.js'
+import { randomJoke } from './exports/fun/jokes.js'
+import { fetchChatGPTData } from './exports/ai/chatGpt4.js'
+import { Bing } from './exports/search/bing.js'
 //=====================================================
 
 const app = express()
@@ -299,6 +300,37 @@ app.get('/search/weather', async (req, res) => {
       status: 500,
       success: false,
       message: 'An error occurred while fetching weather data',
+      error: error.message,
+    })
+  }
+})
+
+app.get('/search/bing', async (req, res) => {
+  const { query } = req.query
+
+  if (!query) {
+    return res.status(400).json({
+      creator: 'Astro',
+      status: 400,
+      success: false,
+      message: 'Query parameter is required',
+    })
+  }
+
+  try {
+    const results = await Bing(query)
+    res.status(200).json({
+      creator: 'Astro',
+      status: 200,
+      success: true,
+      results,
+    })
+  } catch (error) {
+    res.status(500).json({
+      creator: 'Astro',
+      status: 500,
+      success: false,
+      message: 'An error occurred while fetching search results',
       error: error.message,
     })
   }
