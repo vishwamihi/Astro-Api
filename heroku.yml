@@ -1,0 +1,8 @@
+build:
+  docker:
+    web: ./Dockerfile
+  config:
+    # Environment variables needed for the build process here
+
+run:
+  worker: npm start
