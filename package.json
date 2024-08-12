@@ -1,47 +1,57 @@
 {
- "name": "astro-api",
- "version": "1.0.0",
- "description": "A Simple Web Api to Fetch Important Data & Results For Node Js Applications",
- "main": "index.js",
- "type": "module",
- "scripts": {
-  "test": "echo \"Error: no test specified\" && exit 1",
-  "start": "node index.js"
- },
- "repository": {
-  "type": "git",
-  "url": "git+https://github.com/FXastro/Astro-Api.git"
- },
- "keywords": [
-  "Api",
-  "Express",
-  "Node",
-  "Js",
-  "Javascript",
-  "Astro"
- ],
- "author": "FXastro",
- "license": "MIT",
- "bugs": {
-  "url": "https://github.com/FXastro/Astro-Api/issues"
- },
- "homepage": "https://github.com/FXastro/Astro-Api#readme",
- "dependencies": {
-  "axios": "^1.7.3",
-  "cheerio": "^1.0.0",
-  "cron-job": "^1.0.3",
-  "dotenv": "^16.4.5",
-  "express": "^4.19.2",
-  "fs": "^0.0.1-security",
-  "fs-extra": "^11.2.0",
-  "google-it": "^1.6.4",
-  "http": "^0.0.1-security",
-  "node-bing-api": "^4.1.1",
-  "node-fetch": "^3.3.2",
-  "os": "^0.1.2",
-  "path": "^0.12.7",
-  "pm2": "^5.4.2",
-  "python": "^0.0.4",
-  "url": "^0.11.4"
- }
+  "name": "astro-api",
+  "version": "1.0.0",
+  "description": "A Simple Web Api to Fetch Important Data & Results For Node Js Applications",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "lint:fix": "eslint . --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FXastro/Astro-Api.git"
+  },
+  "keywords": [
+    "Api",
+    "Express",
+    "Node",
+    "Js",
+    "Javascript",
+    "Astro"
+  ],
+  "author": "FXastro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FXastro/Astro-Api/issues"
+  },
+  "homepage": "https://github.com/FXastro/Astro-Api#readme",
+  "dependencies": {
+    "axios": "^1.7.3",
+    "cheerio": "^1.0.0",
+    "cron-job": "^1.0.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "fs": "^0.0.1-security",
+    "fs-extra": "^11.2.0",
+    "google-it": "^1.6.4",
+    "http": "^0.0.1-security",
+    "node-bing-api": "^4.1.1",
+    "node-fetch": "^3.3.2",
+    "os": "^0.1.2",
+    "path": "^0.12.7",
+    "pm2": "^5.4.2",
+    "python": "^0.0.4",
+    "url": "^0.11.4"
+  },
+  "devDependencies": {
+    "eslint": "^9.9.0",
+    "eslint-config": "^0.3.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3"
+  }
 }

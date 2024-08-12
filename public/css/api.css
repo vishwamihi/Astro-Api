@@ -1,151 +1,151 @@
 :root {
- --primary-color: #ff3333;
- --secondary-color: #1a1a1a;
- --background-color: #f5f5f5;
- --text-color: #333333;
- --card-background: #fafafa;
+  --primary-color: #ff3333;
+  --secondary-color: #1a1a1a;
+  --background-color: #f5f5f5;
+  --text-color: #333333;
+  --card-background: #fafafa;
 }
 
 * {
- margin: 0;
- padding: 0;
- box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
- font-family: 'Fira Code', monospace;
- background-color: var(--background-color);
- color: var(--text-color);
- line-height: 1.6;
+  font-family: 'Fira Code', monospace;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
 }
 
 .loader {
- position: fixed;
- top: 0;
- left: 0;
- width: 100%;
- height: 100%;
- background-color: var(--secondary-color);
- display: flex;
- justify-content: center;
- align-items: center;
- z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--secondary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
 .loader::after {
- content: '';
- width: 50px;
- height: 50px;
- border: 5px solid var(--background-color);
- border-top: 5px solid var(--primary-color);
- border-radius: 50%;
- animation: spin 1s linear infinite;
+  content: '';
+  width: 50px;
+  height: 50px;
+  border: 5px solid var(--background-color);
+  border-top: 5px solid var(--primary-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
- 0% {
-  transform: rotate(0deg);
- }
- 100% {
-  transform: rotate(360deg);
- }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .content {
- max-width: 1200px;
- margin: 0 auto;
- padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
 }
 
 header {
- background-color: var(--secondary-color);
- color: var(--card-background);
- padding: 1rem;
- text-align: center;
- margin-bottom: 2rem;
+  background-color: var(--secondary-color);
+  color: var(--card-background);
+  padding: 1rem;
+  text-align: center;
+  margin-bottom: 2rem;
 }
 
 #runtime-box {
- display: inline-block;
- background-color: var(--primary-color);
- padding: 0.5rem 1rem;
- border-radius: 5px;
+  display: inline-block;
+  background-color: var(--primary-color);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
 }
 
 h2 {
- color: var(--primary-color);
- margin-bottom: 1rem;
- border-bottom: 2px solid var(--primary-color);
- padding-bottom: 0.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--primary-color);
+  padding-bottom: 0.5rem;
 }
 
 .api-section {
- margin-bottom: 3rem;
+  margin-bottom: 3rem;
 }
 
 .social-media-list,
 .search-list,
 .misc-list,
 .news-list {
- display: grid;
- grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
- gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
 }
 
 .list-item {
- background-color: var(--card-background);
- border-radius: 8px;
- padding: 1.5rem;
- box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
- transition: transform 0.3s ease;
+  background-color: var(--card-background);
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
 .list-item:hover {
- transform: translateY(-5px);
+  transform: translateY(-5px);
 }
 
 .title {
- font-size: 1.2rem;
- font-weight: 500;
- color: var(--primary-color);
- margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
 }
 
 .description {
- font-size: 0.9rem;
- margin-bottom: 1rem;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
 }
 
 button {
- background-color: var(--primary-color);
- color: var(--card-background);
- border: none;
- font-family: Fira Code;
- padding: 0.5rem 1rem;
- border-radius: 5px;
- cursor: pointer;
- font-weight: 600;
- transition: background-color 0.3s ease;
+  background-color: var(--primary-color);
+  color: var(--card-background);
+  border: none;
+  font-family: Fira Code;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-   transition: 0.6s;
- background-color: #cc00ff;
+  transition: 0.6s;
+  background-color: #cc00ff;
 }
 
 a {
- color: inherit;
- text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 @media (max-width: 768px) {
- .content {
-  padding: 1rem;
- }
+  .content {
+    padding: 1rem;
+  }
 
- .social-media-list,
- .misc-list,
- .news-list {
-  grid-template-columns: 1fr;
- }
+  .social-media-list,
+  .misc-list,
+  .news-list {
+    grid-template-columns: 1fr;
+  }
 }

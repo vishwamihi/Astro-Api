@@ -180,3 +180,30 @@ fetchChatGPTData(query)
   .then(result => console.log(result))
   .catch(error => console.error(error));
   */
+
+import puppeteer from 'puppeteer'
+
+export async function Bing(query) {
+  const browser = await puppeteer.launch()
+  const page = await browser.newPage()
+
+  // Construct the Bing search URL
+  const searchUrl = `https://www.bing.com/search?q=${encodeURIComponent(query)}`
+
+  // Go to the search URL
+  await page.goto(searchUrl, { waitUntil: 'networkidle2' })
+
+  // Extract search results
+  const results = await page.evaluate(() => {
+    const items = Array.from(document.querySelectorAll('li.b_algo'))
+    return items.map((item) => {
+      const title = item.querySelector('h2')?.innerText
+      const link = item.querySelector('a')?.href
+      const description = item.querySelector('p')?.innerText
+      return { title, link, description }
+    })
+  })
+
+  await browser.close()
+  return results
+}
