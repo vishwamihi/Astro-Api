@@ -84,6 +84,7 @@ h2 {
 }
 
 .social-media-list,
+.search-list,
 .misc-list,
 .news-list {
  display: grid;

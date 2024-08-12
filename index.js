@@ -10,6 +10,9 @@ import { instagram } from './exports/instagram.js'
 import { twitter } from './exports/twitter.js'
 import { tiktok } from './exports/tiktok.js'
 import { pinterest } from './exports/pinterest.js'
+import { wikimedia } from './exports/wikimedia.js'
+import { GoogleSearch } from './exports/google.js'
+import { fetchWeatherData } from './exports/weather.js'
 //=====================================================
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -160,7 +163,6 @@ app.get('/tiktok', async (req, res) => {
  }
 })
 
-// New Pinterest endpoint
 app.get('/pinterest', async (req, res) => {
  const { query } = req.query
  if (!query) {
@@ -186,6 +188,110 @@ app.get('/pinterest', async (req, res) => {
    status: 500,
    success: false,
    message: 'An error occurred while processing the Pinterest query',
+   error: error.message,
+  })
+ }
+})
+
+app.get('/wikimedia', async (req, res) => {
+ const { title } = req.query
+ if (!title) {
+  return res.status(400).json({
+   creator: 'Astro',
+   status: 400,
+   success: false,
+   message: 'Title parameter is missing',
+  })
+ }
+
+ try {
+  const results = await wikimedia(title)
+  res.status(200).json({
+   creator: 'Astro',
+   status: 200,
+   success: true,
+   results,
+  })
+ } catch (error) {
+  res.status(500).json({
+   creator: 'Astro',
+   status: 500,
+   success: false,
+   message: 'An error occurred while processing the Wikimedia search',
+   error: error.message,
+  })
+ }
+})
+
+app.get('/search', async (req, res) => {
+ const query = req.query.q
+
+ if (!query) {
+  return res.status(400).json({
+   Creator: 'Astro',
+   status: 400,
+   error: 'Query parameter "q" is required',
+  })
+ }
+
+ try {
+  const results = await googleIt({ query })
+  return res.json({
+   Creator: 'Astro',
+   status: 200,
+   results,
+  })
+ } catch (error) {
+  console.error('Error performing Google search:', error)
+  return res.status(500).json({
+   Creator: 'Astro',
+   status: 500,
+   error: 'Failed to perform search',
+  })
+ }
+})
+
+app.get('/google', async (req, res) => {
+ const query = req.query.q
+
+ if (!query) {
+  return res.status(400).json({
+   Creator: 'Astro',
+   status: 400,
+   error: 'Query parameter "q" is required',
+  })
+ }
+
+ const searchResult = await GoogleSearch(query)
+ res.status(searchResult.status).json(searchResult)
+})
+
+app.get('/weather', async (req, res) => {
+ const { apiKey, location, days } = req.query
+
+ if (!apiKey || !location || !days) {
+  return res.status(400).json({
+   creator: 'Astro',
+   status: 400,
+   success: false,
+   message: 'API key, location, and days parameters are required',
+  })
+ }
+
+ try {
+  const result = await fetchWeatherData(apiKey, location, days)
+  res.status(200).json({
+   creator: 'Astro',
+   status: 200,
+   success: true,
+   result,
+  })
+ } catch (error) {
+  res.status(500).json({
+   creator: 'Astro',
+   status: 500,
+   success: false,
+   message: 'An error occurred while fetching weather data',
    error: error.message,
   })
  }

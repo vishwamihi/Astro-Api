@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet" />
   <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/176591771?v=4" type="image/x-icon" />
-  <link rel="stylesheet" href="./css/index.css">
+  <link rel="stylesheet" href="./css/index.css" />
  </head>
  <body>
   <div id="runtime"></div>
@@ -18,18 +18,6 @@
    <button><a href="api.html">GET API</a></button>
   </div>
   <script src="/socket.io/socket.io.js"></script>
-  <script>
-   function updateRuntime() {
-    fetch('/runtime')
-     .then(response => response.text())
-     .then(runtime => {
-      const runtimeDisplay = document.getElementById('runtime')
-      runtimeDisplay.textContent = `Server Runtime: ${runtime}`
-     })
-     .catch(error => console.error('Error fetching runtime:', error))
-   }
-   updateRuntime()
-   setInterval(updateRuntime, 1000)
-  </script>
+  <script src="./js/runtime.js"></script>
  </body>
 </html>

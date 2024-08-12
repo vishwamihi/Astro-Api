@@ -33,6 +33,7 @@
   "express": "^4.19.2",
   "fs": "^0.0.1-security",
   "fs-extra": "^11.2.0",
+  "google-it": "^1.6.4",
   "http": "^0.0.1-security",
   "node-fetch": "^3.3.2",
   "os": "^0.1.2",

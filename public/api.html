@@ -67,6 +67,55 @@
     </div>
    </section>
 
+   <!-- Search Section -->
+   <section class="api-section">
+    <h2>Search</h2>
+    <div class="search-list">
+     <div class="list-item">
+      <div class="title">Wikimedia</div>
+      <div class="description">Get Wikimedia Info</div>
+      <div class="usage">
+       <button><a href="/wikimedia?title=elon%20musk">Check</a></button>
+      </div>
+     </div>
+     <div class="list-item">
+      <div class="title">Weather</div>
+      <div class="description">Get current weather info</div>
+      <div class="usage">
+       <button"><a href="/weather?apiKey=10b55221b0384f88bc795327241208&location=London&days=3">Check</a></button>
+      </div>
+     </div>
+     <div class="list-item">
+      <div class="title">Google Search</div>
+      <div class="description">Explore more news sources</div>
+      <div class="usage">
+       <button><a href="/google?q=nodejs%tutorials">Check</a></button>
+      </div>
+     </div>
+     <div class="list-item">
+      <div class="title">Bing</div>
+      <div class="description">Get current weather info</div>
+      <div class="usage">
+       <button onclick="window.open('/', '_blank')">Check</button>
+      </div>
+     </div>
+     <div class="list-item">
+      <div class="title">Weather</div>
+      <div class="description">Get current weather info</div>
+      <div class="usage">
+       <button onclick="window.open('/', '_blank')">Check</button>
+      </div>
+     </div>
+     <div class="list-item">
+      <div class="title">Weather</div>
+      <div class="description">Get current weather info</div>
+      <div class="usage">
+       <button onclick="window.open('/', '_blank')">Check</button>
+      </div>
+     </div>
+    </div>
+   </section>
+
    <!-- Misc Section -->
    <section class="api-section">
     <h2>Misc</h2>
@@ -103,27 +152,6 @@
     </div>
    </section>
   </div>
-
-  <script>
-   // Loader function
-   window.addEventListener('load', () => {
-    setTimeout(() => {
-     document.querySelector('.loader').style.display = 'none'
-     document.querySelector('.content').style.display = 'block'
-
-     // Update runtime every second
-     const updateRuntime = () => {
-      fetch('/runtime')
-       .then(response => response.text())
-       .then(data => {
-        document.getElementById('runtime').textContent = data
-       })
-     }
-
-     updateRuntime()
-     setInterval(updateRuntime, 1000) // Update every second
-    }, 5000) // 5 seconds loader
-   })
-  </script>
+  <script src="./js/loader.js"></script>
  </body>
 </html>
