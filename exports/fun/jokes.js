@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url'
 
 function randomJoke() {
   // Path to the jokes.json file
-  const filePath = join(__dirname, '../lang', 'jokes.json')
+  const filePath = join(__dirname, '../../lang', 'jokes.json')
 
   // Read the JSON file
   const data = readFileSync(filePath, 'utf-8')
