@@ -350,6 +350,10 @@ function keepalive(url, interval = 1000) {
  }, interval)
 }
 
+app.use((req, res, next) => {
+ res.status(404).sendFile(path.join(__dirname, 'public/404/index.html'))
+})
+
 app.listen(port, () => {
  console.log(`Server is running on http://localhost:${port}`)
 })
