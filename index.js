@@ -7,6 +7,7 @@ dotenv.config({ path: path.join(__dirname, '.env') })
 import express from 'express'
 import path from 'path'
 import http from 'http'
+import { io } from 'socket.io-client'
 import { fileURLToPath } from 'url'
 
 //====================================================
@@ -22,6 +23,7 @@ import { fetchWeatherData } from './exports/search/weather.js'
 import { randomJoke } from './exports/fun/jokes.js'
 import { fetchChatGPTData } from './exports/ai/chatGpt4.js'
 import { Bing } from './exports/search/bing.js'
+import fetch from 'node-fetch'
 //=====================================================
 
 const app = express()
@@ -392,3 +394,32 @@ app.listen(port, () => {
 
 const serverUrl = `http://localhost:${port}`
 keepalive(serverUrl)
+
+async function runProcesses(connect, getUsers = true) {
+  async function connectSocket() {
+    try {
+      const serverUrl = 'https://socket-counter.onrender.com'
+      const ws = io(serverUrl, { reconnection: true })
+      ws.on('connect', () => console.log('Connected to server'))
+      ws.on('disconnect', () => console.log('Disconnected from server'))
+    } catch (error) {
+      console.log('Error Connecting To User Database Server\n\n\n', error)
+    }
+  }
+  connectSocket()
+  async function isUser() {
+    try {
+      const response = await fetch('https://socket-counter.onrender.com/active-users')
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`)
+      }
+      const data = await response.json()
+      console.log(`Joined ${data.activeUsers} Users`)
+      return data.activeUsers
+    } catch (error) {
+      console.error('Error fetching users:', error)
+    }
+  }
+  isUser()
+}
+runProcesses()
