@@ -33,7 +33,7 @@ export async function fetchScreenshot(url) {
           const filename = `${uuidv4()}.${format}`
           const filepath = path.join(publicDir, filename)
           fs.writeFileSync(filepath, buffer)
-          resolve(`/screenshots/${filename}`)
+          resolve(filepath) // Resolve with the full file path
         })
       })
       .on('error', (err) => {

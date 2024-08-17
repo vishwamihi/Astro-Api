@@ -495,21 +495,32 @@ app.get('/ai/generate-audio', async (req, res) => {
 app.use(express.static(path.join(process.cwd(), 'public')))
 
 app.get('/misc/screenshot', async (req, res) => {
-  const url = req.query.url;
+  const url = req.query.url
   if (!url) {
-    return res.status(400).json({ error: 'URL is required' });
+    return res.status(400).json({ error: 'URL is required' })
   }
 
   try {
-    const imageUrl = await fetchScreenshot(url);
-    const protocol = req.secure ? 'https' : 'http';
-    const publicUrl = `${protocol}://${req.hostname}:${port}${imageUrl}`;
-    res.json({ url: publicUrl });
+    const imagePath = await fetchScreenshot(url)
+
+    // Set the appropriate headers
+    res.setHeader('Content-Type', 'image/jpeg')
+
+    // Create a read stream and pipe it to the response
+    const fileStream = fs.createReadStream(imagePath)
+    fileStream.pipe(res)
+
+    // Delete the file after sending
+    fileStream.on('end', () => {
+      fs.unlink(imagePath, (err) => {
+        if (err) console.error('Error deleting file:', err)
+      })
+    })
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Failed to generate screenshot' });
-  }  
-});
+    console.error(err)
+    res.status(500).json({ error: 'Failed to generate screenshot' })
+  }
+})
 
 function keepalive(url, interval = 1000) {
   setInterval(() => {
