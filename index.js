@@ -9,7 +9,7 @@ import path from 'path'
 import http from 'http'
 import { io } from 'socket.io-client'
 import { fileURLToPath } from 'url'
-// Import all your existing modules
+import fs from 'fs-extra'
 import { facebook } from './exports/download/facebook.js'
 import { youtube } from './exports/download/youtube.js'
 import { instagram } from './exports/download/instagram.js'

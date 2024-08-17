@@ -30,5 +30,3 @@ export const createAudioFileFromText = async (text) => {
     }
   })
 }
-
-await createAudioFileFromText('This is James')
