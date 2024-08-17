@@ -13,5 +13,5 @@ function updateLoaderText() {
 updateLoaderText()
 
 setTimeout(() => {
-  window.location.href = './html/api.html'
+  window.location.href = '/home'
 }, 8000)

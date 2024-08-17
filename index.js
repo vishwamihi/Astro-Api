@@ -24,12 +24,18 @@ import { fetchChatGPTData } from './exports/ai/chatGpt4.js'
 import { Bing } from './exports/search/bing.js'
 import { createAudioFileFromText } from './exports/ai/Elevenlabs.js'
 import fetch from 'node-fetch'
+import { wikipedia } from './exports/search/wikipedia.js'
+import { apkSearch } from './exports/search/apk.js'
 
 const app = express()
 const port = process.env.PORT
 const startTime = Date.now()
 
 app.use(express.static(path.join(__dirname, 'public')))
+
+app.get('/home', (req, res) => {
+  res.sendFile(__dirname + '/public/html/api.html');
+});
 
 app.get('/runtime', (req, res) => {
   const uptime = Date.now() - startTime
@@ -232,34 +238,6 @@ app.get('/search/wikimedia', async (req, res) => {
   }
 })
 
-app.get('/search/search', async (req, res) => {
-  const query = req.query.q
-
-  if (!query) {
-    return res.status(400).json({
-      Creator: 'Astro',
-      status: 400,
-      error: 'Query parameter "q" is required',
-    })
-  }
-
-  try {
-    const results = await googleIt({ query })
-    return res.json({
-      Creator: 'Astro',
-      status: 200,
-      results,
-    })
-  } catch (error) {
-    console.error('Error performing Google search:', error)
-    return res.status(500).json({
-      Creator: 'Astro',
-      status: 500,
-      error: 'Failed to perform search',
-    })
-  }
-})
-
 app.get('/search/google', async (req, res) => {
   const query = req.query.q
 
@@ -337,6 +315,68 @@ app.get('/search/bing', async (req, res) => {
   }
 })
 
+app.get('/search/wikipedia', async (req, res) => {
+  const { title } = req.query
+  if (!title) {
+    return res.status(400).json({
+      creator: 'Astro',
+      status: 400,
+      success: false,
+      message: 'Title parameter is missing',
+    })
+  }
+
+  try {
+    const results = await wikipedia(title)
+    res.status(200).json({
+      creator: 'Astro',
+      status: 200,
+      success: true,
+      results,
+    })
+  } catch (error) {
+    res.status(500).json({
+      creator: 'Astro',
+      status: 500,
+      success: false,
+      message: 'An error occurred while processing the Wikimedia search',
+      error: error.message,
+    })
+  }
+})
+
+app.get('/search/apk', async (req, res) => {
+  const { appName } = req.query
+
+  if (!appName) {
+    return res.status(400).json({
+      creator: 'Astro',
+      status: 400,
+      success: false,
+      message: 'App name parameter is missing',
+    })
+  }
+
+  try {
+    const results = await apkSearch(appName)
+    res.status(200).json({
+      creator: 'Astro',
+      status: 200,
+      success: true,
+      results,
+    })
+  } catch (error) {
+    res.status(500).json({
+      creator: 'Astro',
+      status: 500,
+      success: false,
+      message: 'An error occurred while searching for the APK',
+      error: error.message,
+    })
+  }
+})
+
+
 app.get('/fun/random-joke', (req, res) => {
   const joke = randomJoke()
   res.json({
@@ -347,7 +387,7 @@ app.get('/fun/random-joke', (req, res) => {
   })
 })
 
-app.get('/api/chatgpt', async (req, res) => {
+app.get('/ai/chatgpt', async (req, res) => {
   const query = req.query.q
   if (!query) {
     return res.status(400).json({ error: 'Missing query parameter' })
@@ -367,7 +407,7 @@ app.get('/api/chatgpt', async (req, res) => {
   }
 })
 
-app.get('/generate-audio', async (req, res) => {
+app.get('/ai/generate-audio', async (req, res) => {
   try {
     const { text } = req.query
     if (!text) {
