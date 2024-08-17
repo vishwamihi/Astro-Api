@@ -24,5 +24,5 @@ RUN apk del curl && \
 
 RUN git clone https://github.com/FXastro/Astro-Api/ /root/api-worker
 WORKDIR /root/api-worker/
-RUN yarn install --network-concurrency 1
+RUN yarn install
 CMD ["node", "index.js"]
