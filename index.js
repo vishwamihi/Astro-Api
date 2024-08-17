@@ -502,11 +502,13 @@ app.get('/misc/screenshot', async (req, res) => {
 
   try {
     const imageUrl = await fetchScreenshot(url);
-    res.json({ url: `http://localhost:${port}${imageUrl}` });
+    const protocol = req.secure ? 'https' : 'http';
+    const publicUrl = `${protocol}://${req.hostname}:${port}${imageUrl}`;
+    res.json({ url: publicUrl });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to generate screenshot' });
-  }
+  }  
 });
 
 function keepalive(url, interval = 1000) {
