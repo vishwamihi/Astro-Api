@@ -10,6 +10,7 @@ import http from 'http'
 import { io } from 'socket.io-client'
 import { fileURLToPath } from 'url'
 import fs from 'fs-extra'
+import { readdirSync, statSync } from 'fs'
 import { facebook } from './exports/download/facebook.js'
 import { youtube } from './exports/download/youtube.js'
 import { instagram } from './exports/download/instagram.js'
@@ -29,7 +30,7 @@ import { apkSearch } from './exports/search/apk.js'
 import { blackbox } from './exports/ai/blackbox.js'
 import { youtmp3 } from './exports/download/youtubeMp3.js'
 import { fetchScreenshot } from './exports/misc/ssweb.js'
-
+import { join } from 'path'
 const app = express()
 const port = process.env.PORT
 const startTime = Date.now()
@@ -522,18 +523,60 @@ app.get('/misc/screenshot', async (req, res) => {
   }
 })
 
+const animeDir = join(process.cwd(), 'exports', 'anime'); // The directory containing your folders
+
+// Function to get a random image from a folder
+const getRandomImage = (folder) => {
+  const folderPath = join(animeDir, folder);
+  const files = readdirSync(folderPath).filter(file => 
+    statSync(join(folderPath, file)).isFile() && /\.(jpg|jpeg|png|gif)$/i.test(file)
+  );
+  
+  if (files.length === 0) {
+    return null;
+  }
+
+  const randomIndex = Math.floor(Math.random() * files.length);
+  return join(folderPath, files[randomIndex]);
+};
+
+// API route to get a random image based on folder name
+app.get('/anime/:folder', (req, res) => {
+  const folder = req.params.folder;
+
+  // Check if the folder is valid
+  const validFolders = [
+    'angry', 'calm-down', 'confused', 'dance',
+    'embarrassed-nervous', 'happy', 'lunch-break-time',
+    'misc', 'no', 'pre-exercise', 'sad', 'smug',
+    'surprised', 'thinking', 'yes'
+  ];
+
+  if (!validFolders.includes(folder)) {
+    return res.status(404).send('Folder not found');
+  }
+
+  const imagePath = getRandomImage(folder);
+
+  if (imagePath) {
+    res.sendFile(imagePath);
+  } else {
+    res.status(404).send('No images found in the folder');
+  }
+});
+
 function keepalive(url, interval = 1000) {
   setInterval(() => {
     http
       .get(url, (res) => {
         if (res.statusCode === 200) {
-          console.log(`${new Date().toISOString()} - Successfully pinged ${url}`)
+  //        console.log(`${new Date().toISOString()} - Successfully pinged ${url}`)
         } else {
-          console.warn(`${new Date().toISOString()} - Received status code ${res.statusCode} from ${url}`)
+   //       console.warn(`${new Date().toISOString()} - Received status code ${res.statusCode} from ${url}`)
         }
       })
       .on('error', (err) => {
-        console.error(`${new Date().toISOString()} - Failed to ping ${url}: ${err.message}`)
+ //       console.error(`${new Date().toISOString()} - Failed to ping ${url}: ${err.message}`)
       })
   }, interval)
 }
