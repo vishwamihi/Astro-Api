@@ -9,8 +9,7 @@ import path from 'path'
 import http from 'http'
 import { io } from 'socket.io-client'
 import { fileURLToPath } from 'url'
-
-//====================================================
+// Import all your existing modules
 import { facebook } from './exports/download/facebook.js'
 import { youtube } from './exports/download/youtube.js'
 import { instagram } from './exports/download/instagram.js'
@@ -23,8 +22,8 @@ import { fetchWeatherData } from './exports/search/weather.js'
 import { randomJoke } from './exports/fun/jokes.js'
 import { fetchChatGPTData } from './exports/ai/chatGpt4.js'
 import { Bing } from './exports/search/bing.js'
+import { createAudioFileFromText } from './exports/ai/Elevenlabs.js'
 import fetch from 'node-fetch'
-//=====================================================
 
 const app = express()
 const port = process.env.PORT
@@ -368,12 +367,41 @@ app.get('/api/chatgpt', async (req, res) => {
   }
 })
 
+app.get('/generate-audio', async (req, res) => {
+  try {
+    const { text } = req.query
+    if (!text) {
+      return res.status(400).json({ error: 'Text query parameter is required' })
+    }
+
+    const fileName = await createAudioFileFromText(text)
+
+    // Set the appropriate headers
+    res.setHeader('Content-Type', 'audio/mpeg')
+    res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`)
+
+    // Create a read stream and pipe it to the response
+    const fileStream = fs.createReadStream(fileName)
+    fileStream.pipe(res)
+
+    // Delete the file after sending
+    fileStream.on('end', () => {
+      fs.unlink(fileName, (err) => {
+        if (err) console.error('Error deleting file:', err)
+      })
+    })
+  } catch (error) {
+    console.error('Error generating audio:', error)
+    res.status(500).json({ error: 'Failed to generate audio' })
+  }
+})
+
 function keepalive(url, interval = 1000) {
   setInterval(() => {
     http
       .get(url, (res) => {
         if (res.statusCode === 200) {
-     console.log(`${new Date().toISOString()} - Successfully pinged ${url}`)
+          console.log(`${new Date().toISOString()} - Successfully pinged ${url}`)
         } else {
           console.warn(`${new Date().toISOString()} - Received status code ${res.statusCode} from ${url}`)
         }
