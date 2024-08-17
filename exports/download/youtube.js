@@ -1,7 +1,6 @@
-// File: exports/youtube.js
 import fetch from 'node-fetch'
 
-export async function youtube(url) {
+async function youtube(url) {
   try {
     const BASE_URL = 'https://cobalt.tools'
     const BASE_API = 'https://api.cobalt.tools/api'
@@ -42,3 +41,5 @@ export async function youtube(url) {
     throw e
   }
 }
+
+export { youtube }

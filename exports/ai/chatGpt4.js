@@ -11,3 +11,13 @@ export async function fetchChatGPTData(query) {
       return null
     })
 }
+
+// const query = 'What is the meaning of life?';
+
+// fetchChatGPTData(query)
+//   .then((data) => {
+//     console.log('Received data:', data);
+//   })
+//   .catch((error) => {
+//     console.error('Error:', error);
+//   });

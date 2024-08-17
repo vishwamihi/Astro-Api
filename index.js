@@ -26,6 +26,9 @@ import { createAudioFileFromText } from './exports/ai/Elevenlabs.js'
 import fetch from 'node-fetch'
 import { wikipedia } from './exports/search/wikipedia.js'
 import { apkSearch } from './exports/search/apk.js'
+import { blackbox } from './exports/ai/blackbox.js'
+import { youtmp3 } from './exports/download/youtubeMp3.js'
+import { fetchScreenshot } from './exports/misc/ssweb.js'
 
 const app = express()
 const port = process.env.PORT
@@ -33,9 +36,12 @@ const startTime = Date.now()
 
 app.use(express.static(path.join(__dirname, 'public')))
 
+app.enable('trust proxy')
+app.set('json spaces', 2)
+
 app.get('/home', (req, res) => {
-  res.sendFile(__dirname + '/public/html/api.html');
-});
+  res.sendFile(__dirname + '/public/html/api.html')
+})
 
 app.get('/runtime', (req, res) => {
   const uptime = Date.now() - startTime
@@ -76,6 +82,36 @@ app.get('/download/youtube', async (req, res) => {
       status: result.status,
       success: result.status === 200,
       url: result.url,
+    })
+  } catch (error) {
+    res.status(500).json({
+      creator: 'Astro',
+      status: 500,
+      success: false,
+      message: 'An error occurred while processing the YouTube URL',
+      error: error.message,
+    })
+  }
+})
+
+app.get('/download/ytmp3', async (req, res) => {
+  const { url } = req.query
+  if (!url) {
+    return res.status(400).json({
+      creator: 'Astro',
+      status: 400,
+      success: false,
+      message: 'URL parameter is missing',
+    })
+  }
+
+  try {
+    const result = await youtmp3(url)
+    res.status(result.status).json({
+      creator: 'Astro',
+      status: result.status,
+      success: result.status === 200,
+      audio: result.url,
     })
   } catch (error) {
     res.status(500).json({
@@ -376,7 +412,6 @@ app.get('/search/apk', async (req, res) => {
   }
 })
 
-
 app.get('/fun/random-joke', (req, res) => {
   const joke = randomJoke()
   res.json({
@@ -406,6 +441,26 @@ app.get('/ai/chatgpt', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' })
   }
 })
+app.get('/ai/blackbox', async (req, res) => {
+  const query = req.query.q
+  if (!query) {
+    return res.status(400).json({ error: 'Missing query parameter' })
+  }
+
+  try {
+    const result = await blackbox(query)
+    res.json({
+      creator: 'Astro',
+      status: 200,
+      success: true,
+      result: result,
+    })
+  } catch (error) {
+    console.log('Error Fetching BlackBox data:', error)
+    res.status(500).json({ error: 'Internal Server Error' })
+  }
+})
+app.use(express.static(path.join(process.cwd(), 'public')))
 
 app.get('/ai/generate-audio', async (req, res) => {
   try {
@@ -414,19 +469,20 @@ app.get('/ai/generate-audio', async (req, res) => {
       return res.status(400).json({ error: 'Text query parameter is required' })
     }
 
-    const fileName = await createAudioFileFromText(text)
+    const audioPath = await createAudioFileFromText(text)
+    const fullPath = path.join(process.cwd(), 'public', audioPath)
 
     // Set the appropriate headers
     res.setHeader('Content-Type', 'audio/mpeg')
-    res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`)
+    res.setHeader('Content-Disposition', `attachment; filename="${path.basename(audioPath)}"`)
 
     // Create a read stream and pipe it to the response
-    const fileStream = fs.createReadStream(fileName)
+    const fileStream = fs.createReadStream(fullPath)
     fileStream.pipe(res)
 
     // Delete the file after sending
     fileStream.on('end', () => {
-      fs.unlink(fileName, (err) => {
+      fs.unlink(fullPath, (err) => {
         if (err) console.error('Error deleting file:', err)
       })
     })
@@ -435,6 +491,23 @@ app.get('/ai/generate-audio', async (req, res) => {
     res.status(500).json({ error: 'Failed to generate audio' })
   }
 })
+
+app.use(express.static(path.join(process.cwd(), 'public')))
+
+app.get('/misc/screenshot', async (req, res) => {
+  const url = req.query.url;
+  if (!url) {
+    return res.status(400).json({ error: 'URL is required' });
+  }
+
+  try {
+    const imageUrl = await fetchScreenshot(url);
+    res.json({ url: `http://localhost:${port}${imageUrl}` });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to generate screenshot' });
+  }
+});
 
 function keepalive(url, interval = 1000) {
   setInterval(() => {
