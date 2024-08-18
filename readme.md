@@ -117,19 +117,15 @@ The server will start and listen on the default port (3000). You can change the 
 
 #### Social Media
 
-- **Endpoint**: `/social-media`
+- **Endpoint**: `/download/tiktok`
 - **Method**: GET
 - **Description**: Fetches a list of social media links with validation.
 
 #### Weather
 
-- **Endpoint**: `/weather`
+- **Endpoint**: `/search/weather`
 - **Method**: GET
 - **Description**: Retrieves the current weather data in JSON format.
-
-### Command Handling
-
-The `command` function in `plugins.js` is used to define and store commands. Commands are managed in the `commands` array, which supports various properties like patterns and execution contexts.
 
 ## Contributing
 
