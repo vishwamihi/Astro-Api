@@ -9,9 +9,8 @@ const letters = express.Router()
 // Serve static files from the public directory
 letters.use(express.static(path.join(__dirname, 'public')))
 
-// Serve index.html specifically for /newsletter route
 letters.get('/newsletter', (req, res) => {
- res.sendFile(path.join(__dirname, '../public/html/index.html'))
+ res.sendFile(path.join(__dirname, '../public/html/sub.html'))
 })
 
 export default letters
