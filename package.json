@@ -2,11 +2,11 @@
   "name": "astro-api",
   "version": "1.0.0",
   "description": "A Simple Web Api to Fetch Important Data & Results For Node Js Applications",
-  "main": "index.js",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
+    "start": "node server.js",
     "lint": "eslint .",
     "format": "prettier --write .",
     "lint:fix": "eslint . --fix"
