@@ -6,8 +6,6 @@ dotenv.config({ path: path.join(__dirname, '.env') })
 
 import express from 'express'
 import path from 'path'
-import http from 'http'
-import { io } from 'socket.io-client'
 import { fileURLToPath } from 'url'
 import fs from 'fs-extra'
 import { readdirSync, statSync } from 'fs'
@@ -24,7 +22,6 @@ import { randomJoke } from './exports/fun/jokes.js'
 import { fetchChatGPTData } from './exports/ai/chatGpt4.js'
 import { Bing } from './exports/search/bing.js'
 import { createAudioFileFromText } from './exports/ai/Elevenlabs.js'
-import fetch from 'node-fetch'
 import { wikipedia } from './exports/search/wikipedia.js'
 import { apkSearch } from './exports/search/apk.js'
 import { blackbox } from './exports/ai/blackbox.js'
@@ -523,63 +520,38 @@ app.get('/misc/screenshot', async (req, res) => {
   }
 })
 
-const animeDir = join(process.cwd(), 'exports', 'anime'); // The directory containing your folders
+const animeDir = join(process.cwd(), 'exports', 'anime') // The directory containing your folders
 
 // Function to get a random image from a folder
 const getRandomImage = (folder) => {
-  const folderPath = join(animeDir, folder);
-  const files = readdirSync(folderPath).filter(file => 
-    statSync(join(folderPath, file)).isFile() && /\.(jpg|jpeg|png|gif)$/i.test(file)
-  );
-  
+  const folderPath = join(animeDir, folder)
+  const files = readdirSync(folderPath).filter((file) => statSync(join(folderPath, file)).isFile() && /\.(jpg|jpeg|png|gif)$/i.test(file))
+
   if (files.length === 0) {
-    return null;
+    return null
   }
 
-  const randomIndex = Math.floor(Math.random() * files.length);
-  return join(folderPath, files[randomIndex]);
-};
+  const randomIndex = Math.floor(Math.random() * files.length)
+  return join(folderPath, files[randomIndex])
+}
 
-// API route to get a random image based on folder name
 app.get('/anime/:folder', (req, res) => {
-  const folder = req.params.folder;
+  const folder = req.params.folder
 
-  // Check if the folder is valid
-  const validFolders = [
-    'angry', 'calm-down', 'confused', 'dance',
-    'embarrassed-nervous', 'happy', 'lunch-break-time',
-    'misc', 'no', 'pre-exercise', 'sad', 'smug',
-    'surprised', 'thinking', 'yes'
-  ];
+  const validFolders = ['angry', 'calm-down', 'confused', 'dance', 'embarrassed-nervous', 'happy', 'lunch-break-time', 'misc', 'no', 'pre-exercise', 'sad', 'smug', 'surprised', 'thinking', 'yes']
 
   if (!validFolders.includes(folder)) {
-    return res.status(404).send('Folder not found');
+    return res.status(404).send('Folder not found')
   }
 
-  const imagePath = getRandomImage(folder);
+  const imagePath = getRandomImage(folder)
 
   if (imagePath) {
-    res.sendFile(imagePath);
+    res.sendFile(imagePath)
   } else {
-    res.status(404).send('No images found in the folder');
+    res.status(404).send('No images found in the folder')
   }
-});
-
-function keepalive(url, interval = 1000) {
-  setInterval(() => {
-    http
-      .get(url, (res) => {
-        if (res.statusCode === 200) {
-  //        console.log(`${new Date().toISOString()} - Successfully pinged ${url}`)
-        } else {
-   //       console.warn(`${new Date().toISOString()} - Received status code ${res.statusCode} from ${url}`)
-        }
-      })
-      .on('error', (err) => {
- //       console.error(`${new Date().toISOString()} - Failed to ping ${url}: ${err.message}`)
-      })
-  }, interval)
-}
+})
 
 app.use((req, res, next) => {
   res.status(404).sendFile(path.join(__dirname, 'public/404/index.html'))
@@ -589,34 +561,4 @@ app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`)
 })
 
-const serverUrl = `http://localhost:${port}`
-keepalive(serverUrl)
-
-async function runProcesses(connect, getUsers = true) {
-  async function connectSocket() {
-    try {
-      const serverUrl = 'https://socket-counter.onrender.com'
-      const ws = io(serverUrl, { reconnection: true })
-      ws.on('connect', () => console.log('Connected to server'))
-      ws.on('disconnect', () => console.log('Disconnected from server'))
-    } catch (error) {
-      console.log('Error Connecting To User Database Server\n\n\n', error)
-    }
-  }
-  connectSocket()
-  async function isUser() {
-    try {
-      const response = await fetch('https://socket-counter.onrender.com/active-users')
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`)
-      }
-      const data = await response.json()
-      console.log(`Joined ${data.activeUsers} Users`)
-      return data.activeUsers
-    } catch (error) {
-      console.error('Error fetching users:', error)
-    }
-  }
-  isUser()
-}
 runProcesses()

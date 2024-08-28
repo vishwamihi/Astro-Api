@@ -1,28 +1,89 @@
-FROM node:alpine
+FROM ubuntu:22.04
 
-ENV TZ=Asia/Kolkata
+ENV NODE_VERSION=20.x
+ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apk add --no-cache \
-   tzdata \
-   ffmpeg \
-   git \
-   imagemagick \
-   python3 \
-   graphicsmagick \
-   sudo \
-   npm \
-   yarn \
-   curl \
-   bash && \
-   cp /usr/share/zoneinfo/Asia/Kolkata /etc/localtime && \
-   echo "Asia/Kolkata" > /etc/timezone
+RUN apt-get update && apt-get install -y \
+    curl \
+    gnupg \
+    build-essential \
+    ca-certificates \
+    libssl-dev \
+    pkg-config \
+    libpixman-1-dev \
+    libcairo2-dev \
+    libpango1.0-dev \
+    libjpeg-dev \
+    libgif-dev \
+    librsvg2-dev \
+    libxi-dev \
+    libgl1-mesa-dev \
+    libglu1-mesa-dev \
+    libxext-dev \
+    libx11-dev \
+    libxcursor-dev \
+    libasound2 \
+    libatk1.0-0 \
+    libc6 \
+    libcairo2 \
+    libcups2 \
+    libdbus-1-3 \
+    libexpat1 \
+    libfontconfig1 \
+    libgcc1 \
+    libgconf-2-4 \
+    libgdk-pixbuf2.0-0 \
+    libglib2.0-0 \
+    libgtk-3-0 \
+    libnspr4 \
+    libpango-1.0-0 \
+    libpangocairo-1.0-0 \
+    libstdc++6 \
+    libx11-6 \
+    libx11-xcb1 \
+    libxcb1 \
+    libxcomposite1 \
+    libxcursor1 \
+    libxdamage1 \
+    libxext6 \
+    libxfixes3 \
+    libxi6 \
+    libxrandr2 \
+    libxrender1 \
+    libxss1 \
+    libxtst6 \
+    fonts-liberation \
+    libappindicator1 \
+    libnss3 \
+    lsb-release \
+    xdg-utils \
+    wget \
+    xvfb \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g supervisor
+RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION} | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g npm@latest
 
-RUN apk del curl && \
-   rm -rf /var/cache/apk/*
+RUN npm install -g yarn
 
-RUN git clone https://github.com/FXastro/Astro-Api/ /root/api-worker
-WORKDIR /root/api-worker/
-RUN yarn install
-CMD ["node", "index.js"]
+# Create app directory
+WORKDIR /root
+
+# Install Puppeteer and its dependencies
+RUN npm init -y \
+    && npm install puppeteer \
+    && groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
+    && mkdir -p /home/pptruser/Downloads \
+    && chown -R pptruser:pptruser /home/pptruser \
+    && chown -R pptruser:pptruser /root
+
+RUN npm install canvas
+
+COPY . .
+RUN git clone https://github.com/FXastro/Astro-Api/ .
+RUN npm install
+USER pptruser
+EXPOSE 3000
+ENV DISPLAY=:99
+CMD Xvfb :99 -screen 0 1024x768x16

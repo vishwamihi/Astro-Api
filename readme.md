@@ -35,9 +35,9 @@ Response:
 
 ```javascript
 fetch('http://localhost:3000/api/endpoint1')
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error('Error:', error));
+  .then((response) => response.json())
+  .then((data) => console.log(data))
+  .catch((error) => console.error('Error:', error))
 ```
 
 ### Python (Requests)
@@ -52,11 +52,12 @@ print(response.json())
 ### Node.js (Axios)
 
 ```javascript
-const axios = require('axios');
+const axios = require('axios')
 
-axios.get('http://localhost:3000/api/endpoint1')
-  .then(response => console.log(response.data))
-  .catch(error => console.error('Error:', error));
+axios
+  .get('http://localhost:3000/api/endpoint1')
+  .then((response) => console.log(response.data))
+  .catch((error) => console.error('Error:', error))
 ```
 
 ### PHP (cURL)

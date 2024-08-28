@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'axios'
 
 export async function blackbox(message) {
   try {
@@ -12,16 +12,16 @@ export async function blackbox(message) {
       trendingAgentMode: {},
       isMicMode: false,
       isChromeExt: false,
-      githubToken: null
-    });
+      githubToken: null,
+    })
 
     // Filter out both $@$v=v1.21-rv1$@$ and $@$v=undefined-rv1$@$ patterns from the response
-    let filteredResponse = response.data.replace(/\$@\$v=(v1\.21|undefined)-rv1\$@\$/g, '');
+    let filteredResponse = response.data.replace(/\$@\$v=(v1\.21|undefined)-rv1\$@\$/g, '')
 
-    return filteredResponse;
+    return filteredResponse
   } catch (error) {
-    console.error(error);
-    throw error;
+    console.error(error)
+    throw error
   }
 }
 
