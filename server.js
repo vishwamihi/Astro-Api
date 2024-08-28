@@ -30,14 +30,17 @@ import { fetchScreenshot } from './exports/misc/ssweb.js'
 import { join } from 'path'
 const app = express()
 const port = process.env.PORT
-const startTime = Date.now()
 
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.enable('trust proxy')
 app.set('json spaces', 2)
 
-app.get('/home', (req, res) => {
+app.get('/status', (req, res) => {
+  res.status(200).sendFile(__dirname + '/public/html/200.html');
+});
+
+app.get('/api', (req, res) => {
   res.sendFile(__dirname + '/public/html/api.html')
 })
 
