@@ -71,19 +71,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Create app directory
+# Create app directory and clone repository
 WORKDIR /app
+RUN git clone https://github.com/FXastro/Astro-Api/ .
+
+# Install dependencies
+RUN npm install
 
 # Install Puppeteer and its dependencies
-RUN npm init -y \
-    && npm install puppeteer canvas \
+RUN npm install puppeteer canvas \
     && groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
     && mkdir -p /home/pptruser/Downloads \
     && chown -R pptruser:pptruser /home/pptruser /app
-
-# Clone repository and install dependencies
-RUN git clone https://github.com/FXastro/Astro-Api/ . \
-    && npm install
 
 USER pptruser
 EXPOSE 3000
