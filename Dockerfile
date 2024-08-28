@@ -4,6 +4,9 @@ ENV NODE_VERSION=20.x
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
+    git \
+    ffmpeg \
+    chromium \
     curl \
     gnupg \
     build-essential \
