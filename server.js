@@ -30,7 +30,7 @@ import { fetchScreenshot } from './exports/misc/ssweb.js'
 import { join } from 'path'
 const app = express()
 const port = process.env.PORT
-
+const startTime = new Date()
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.enable('trust proxy')
