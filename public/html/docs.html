@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Fetch Documentation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/docs.css" />
+  </head>
+  <body>
+    <h1>API PRE CONNECT</h1>
+    <div class="language-section">
+      <i class="icon fab fa-js"></i>
+      <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code class="language-javascript">
+<span class="keyword">fetch</span>(<span class="string">'https://astro-api-guru-x8in.onrender.com'</span>)
+  .<span class="function">then</span>(<span class="variable">response</span> =&gt; <span class="variable">response</span>.<span class="function">json</span>())
+  .<span class="function">then</span>(<span class="variable">data</span> =&gt; <span class="function">console</span>.<span class="function">log</span>(<span class="variable">data</span>))
+  .<span class="function">catch</span>(<span class="variable">error</span> =&gt; <span class="function">console</span>.<span class="function">error</span>(<span class="string">'Error:'</span>, <span class="variable">error</span>));
+            </code></pre>
+      </div>
+    </div>
+
+    <div class="language-section">
+      <i class="icon fab fa-python"></i>
+      <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code class="language-python">
+<span class="keyword">import</span> <span class="variable">requests</span>
+
+<span class="variable">response</span> = <span class="variable">requests</span>.<span class="function">get</span>(<span class="string">'https://astro-api-guru-x8in.onrender.com'</span>)
+<span class="variable">data</span> = <span class="variable">response</span>.<span class="function">json</span>()
+<span class="function">print</span>(<span class="variable">data</span>)
+            </code></pre>
+      </div>
+    </div>
+
+    <div class="language-section">
+      <i class="icon fab fa-node-js"></i>
+      <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code class="language-javascript">
+<span class="keyword">const</span> <span class="variable">axios</span> = <span class="keyword">require</span>(<span class="string">'axios'</span>);
+
+<span class="variable">axios</span>.<span class="function">get</span>(<span class="string">'https://astro-api-guru-x8in.onrender.com'</span>)
+  .<span class="function">then</span>(<span class="variable">response</span> =&gt; <span class="function">console</span>.<span class="function">log</span>(<span class="variable">response</span>.<span class="variable">data</span>))
+  .<span class="function">catch</span>(<span class="variable">error</span> =&gt; <span class="function">console</span>.<span class="function">error</span>(<span class="string">'Error:'</span>, <span class="variable">error</span>));
+            </code></pre>
+      </div>
+    </div>
+
+    <div class="language-section">
+      <i class="icon fab fa-php"></i>
+      <div class="code-block">
+        <button class="copy-btn">Copy</button>
+        <pre><code class="language-php">
+&lt;?php
+<span class="variable">$ch</span> = <span class="function">curl_init</span>();
+<span class="function">curl_setopt</span>(<span class="variable">$ch</span>, <span class="constant">CURLOPT_URL</span>, <span class="string">'https://astro-api-guru-x8in.onrender.com'</span>);
+<span class="function">curl_setopt</span>(<span class="variable">$ch</span>, <span class="constant">CURLOPT_RETURNTRANSFER</span>, <span class="boolean">true</span>);
+<span class="variable">$response</span> = <span class="function">curl_exec</span>(<span class="variable">$ch</span>);
+<span class="function">curl_close</span>(<span class="variable">$ch</span>);
+
+<span class="variable">$data</span> = <span class="function">json_decode</span>(<span class="variable">$response</span>, <span class="boolean">true</span>);
+<span class="function">print_r</span>(<span class="variable">$data</span>);
+?&gt;
+</code></pre>
+      </div>
+    </div>
+
+    <script src="../js/docs.js"></script>
+  </body>
+</html>

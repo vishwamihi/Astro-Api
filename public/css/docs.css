@@ -1,0 +1,205 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins;
+}
+
+body {
+  line-height: 1.6;
+  color: #333;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background: linear-gradient(to top left, #000714, #091b00);
+}
+
+h1 {
+  text-align: center;
+  color: #fafafa;
+  margin-top: 10px;
+}
+
+.language-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+  margin-top: 50px;
+}
+
+.language-section:nth-child(even) {
+  flex-direction: row-reverse;
+}
+
+.icon {
+  font-size: 4rem;
+  margin: 0 20px;
+  color: #fafafa;
+}
+
+.code-block {
+  flex: 1;
+  background: rgba(0, 123, 255, 0.051);
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow-y: auto; /* Add this to enable vertical scrolling */
+  max-height: 300px; /* Set a maximum height for the code block */
+  width: 100%; /* Make the code block full width */
+}
+
+.code-block::-webkit-scrollbar {
+  width: 10px; /* Set the width of the scrollbar */
+  height: 10px; /* Set the height of the scrollbar */
+}
+
+.code-block::-webkit-scrollbar-thumb {
+  background: #2c3e50; /* Set the background color of the scrollbar thumb */
+  border-radius: 10px; /* Set the border radius of the scrollbar thumb */
+}
+
+.code-block::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Set the background color of the scrollbar track */
+  border-radius: 10px; /* Set the border radius of the scrollbar track */
+}
+
+pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+code {
+  font-family: Fira Code;
+  line-height: 1.4;
+}
+
+/* Keyword colors */
+code .keyword {
+  color: #708;
+}
+
+/* Function colors */
+code .function {
+  color: #06a;
+}
+
+/* Variable colors */
+code .variable {
+  color: #660;
+}
+
+/* String colors */
+code .string {
+  color: #080;
+}
+
+/* Comment colors */
+code .comment {
+  color: #999;
+}
+
+/* Operator colors */
+code .operator {
+  color: #fff;
+}
+
+/* Punctuation colors */
+code .punctuation {
+  color: #666;
+}
+
+/* Number colors */
+code .number {
+  color: #099;
+}
+
+/* Boolean colors */
+code .boolean {
+  color: #099;
+}
+
+/* Null colors */
+code .null {
+  color: #099;
+}
+
+.copy-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #2c3e50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.copy-btn:hover {
+  filter: brightness(1.5);
+}
+
+/* Media queries for responsiveness */
+
+@media (max-width: 1200px) {
+  body {
+    max-width: 90%;
+  }
+}
+
+@media (max-width: 992px) {
+  .language-section {
+    flex-direction: column;
+  }
+  .icon {
+    margin: 20px 0;
+  }
+  .code-block {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .language-section {
+    flex-direction: column !important;
+  }
+  .icon {
+    margin: 20px 0;
+    font-size: 3rem;
+  }
+  .code-block {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .language-section {
+    margin-bottom: 20px;
+  }
+  .icon {
+    margin: 10px 0;
+    font-size: 2.5rem;
+  }
+  .code-block {
+    padding: 0.3rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .language-section {
+    margin-bottom: 15px;
+  }
+  .icon {
+    margin: 5px 0;
+    font-size: 2rem;
+  }
+  .code-block {
+    padding: 0.2rem;
+    font-size: 0.7rem;
+  }
+}

@@ -7,7 +7,6 @@ dotenv.config({ path: path.join(__dirname, '.env') })
 import express from 'express'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import fs from 'fs-extra'
 import { readdirSync, statSync } from 'fs'
 import { facebook } from './exports/download/facebook.js'
 import { youtube } from './exports/download/youtube.js'
@@ -28,20 +27,32 @@ import { blackbox } from './exports/ai/blackbox.js'
 import { youtmp3 } from './exports/download/youtubeMp3.js'
 import { fetchScreenshot } from './exports/misc/ssweb.js'
 import { join } from 'path'
+import letters from './exports/index.js'
+import fs from 'fs/promises'
 const app = express()
 const port = process.env.PORT
 const startTime = new Date()
 app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.urlencoded({ extended: false }))
+app.use(express.json())
 
 app.enable('trust proxy')
 app.set('json spaces', 2)
 
 app.get('/status', (req, res) => {
-  res.status(200).sendFile(__dirname + '/public/html/200.html');
-});
+  res.status(200).sendFile(__dirname + '/public/html/200.html')
+})
 
-app.get('/api', (req, res) => {
+app.get('/dashboard', (req, res) => {
   res.sendFile(__dirname + '/public/html/api.html')
+})
+
+app.get('/docs', (req, res) => {
+  res.sendFile(__dirname + '/public/html/docs.html')
+})
+
+app.get('/newsletter', (req, res) => {
+  res.sendFile(__dirname + '/public/html/sub.html')
 })
 
 app.get('/runtime', (req, res) => {
@@ -49,6 +60,36 @@ app.get('/runtime', (req, res) => {
   const runtime = new Date(uptime).toISOString().substr(11, 8)
   res.send(runtime)
 })
+app.post('/newsletter', async (req, res) => {
+  try {
+    const { email } = req.body
+    if (!email) {
+      return res.status(400).json({ success: false, message: 'Email is required' })
+    }
+
+    const filePath = path.join(__dirname, 'json', 'letters.json')
+    let emails = []
+
+    try {
+      const data = await fs.readFile(filePath, 'utf8')
+      emails = JSON.parse(data)
+    } catch (error) {}
+
+    if (emails.includes(email)) {
+      return res.status(400).json({ success: false, message: 'Email already subscribed' })
+    }
+
+    emails.push(email)
+    await fs.writeFile(filePath, JSON.stringify(emails, null, 2))
+
+    res.json({ success: true, message: 'Subscription successful' })
+  } catch (error) {
+    console.error('Error:', error)
+    res.status(500).json({ success: false, message: 'An error occurred' })
+  }
+})
+
+app.use('/', letters)
 
 app.get('/download/facebook', async (req, res) => {
   const { url } = req.query

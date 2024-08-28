@@ -1,62 +1,61 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Fira Code;
+}
+body {
+  background: #000714;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
 
-   * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Fira Code;
-   }
-   body {
-    background: #000714;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-   }
+.container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background: linear-gradient(to top left, #001335, #0f2c00);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-   .container {
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 20px;
-    background: linear-gradient(to top left, #001335, #0f2c00);
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-   }
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #fafafa;
+}
 
-   h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #fafafa;
-   }
+p {
+  margin-bottom: 20px;
+  color: #adadad;
+}
 
-   p {
-    margin-bottom: 20px;
-    color: #adadad;
-   }
+a {
+  text-decoration: underline;
+  color: #fafafa;
+}
 
-   a {
-    text-decoration: underline;
-    color: #fafafa;
-   }
+a:hover {
+  color: #23527c;
+}
 
-   a:hover {
-    color: #23527c;
-   }
+.btn {
+  background-color: #fafafa;
+  color: #333;
+  padding: 0.8rem 1.6rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  display: inline-block;
+}
 
-   .btn {
-    background-color: #fafafa;
-    color: #333;
-    padding: 0.8rem 1.6rem;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-decoration: none;
-    display: inline-block;
-   }
-
-   .btn:hover {
-    background-color: #004c42;
-    color: #fafafa;
-   }
+.btn:hover {
+  background-color: #004c42;
+  color: #fafafa;
+}
