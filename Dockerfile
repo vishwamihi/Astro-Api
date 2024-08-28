@@ -2,6 +2,8 @@ FROM ubuntu:22.04
 
 ENV NODE_VERSION=20.x
 ENV DEBIAN_FRONTEND=noninteractive
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/google-chrome-stable
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     software-properties-common \
@@ -9,7 +11,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get update && apt-get install -y --no-install-recommends \
     git \
     ffmpeg \
-    chromium-browser \
     curl \
     gnupg \
     build-essential \
@@ -71,6 +72,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
+# Install Google Chrome
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list \
+    && apt-get update \
+    && apt-get install -y google-chrome-stable \
+    && rm -rf /var/lib/apt/lists/*
+
 # Create app directory and clone repository
 WORKDIR /app
 RUN git clone https://github.com/FXastro/Astro-Api/ .
@@ -78,10 +86,10 @@ RUN git clone https://github.com/FXastro/Astro-Api/ .
 # Install dependencies
 RUN npm install
 
-# Install Puppeteer and its dependencies
+# Install Puppeteer (without downloading Chromium) and its dependencies
 RUN npm install puppeteer canvas \
     && groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
-    && mkdir -p /home/pptruser/Downloads \
+    && mkdir -p /home/pptruser/.cache/puppeteer \
     && chown -R pptruser:pptruser /home/pptruser /app
 
 USER pptruser
