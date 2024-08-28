@@ -1,26 +1,59 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API DOCS</title>
-    <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/176591771?v=4" type="image/x-icon" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./css/index.css" />
-  </head>
-  <body>
-    <div id="loader">
-      <div class="loader-box">
-        <div class="loader-console">
-          <span class="loader-text"></span>
-        </div>
-      </div>
+ <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Astro Api</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/index.css" />
+ </head>
+ <body>
+  <header>
+   <div class="logo">IntergrationHub</div>
+   <nav>
+    <ul class="menu">
+     <li><a href="#">Docs</a></li>
+     <li><a href="#">Projects</a></li>
+     <li><a href="#">Records</a></li>
+    </ul>
+   </nav>
+   <div class="hamburger">
+    <div class="line"></div>
+    <div class="line"></div>
+   </div>
+  </header>
+
+  <main class="container">
+   <section class="hero">
+    <h1>Get Started</h1>
+    <p>Focus on what truly matters by eliminating the hassle of dealing with consoles and command-line interfaces. Achieve seamless integration, faster response times, efficient data transfers, and an optimized workflow to enhance your productivity.</p>
+    <a href="/newsletter" class="cta-button">Join News Letter</a>
+   </section>
+
+   <section class="download-options">
+    <div class="download-option">
+     <h3>Explore Early Access Features</h3>
+     <p>Discover the latest features in development and join the effort to shape the future. Your input is valuable.</p>
+     <a href="#" class="cta-button">Join Dev Program</a>
     </div>
-    <div id="runtime"></div>
-    <script src="./js/inits.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="./js/runtime.js"></script>
-  </body>
+    <div class="download-option">
+     <h3>API Connection Resources Documentation</h3>
+     <p>Access the comprehensive API documentation to get started quickly. Find all the details you need here.</p>
+     <a href="#" class="cta-button">Documentation</a>
+    </div>
+    <div class="download-option">
+     <h3>Deployment For Local Machines</h3>
+     <p>Need deployment guides for Mac? Find detailed instructions to help you through the deployment process.</p>
+     <a href="#" class="cta-button">Deployment</a>
+    </div>
+   </section>
+  </main>
+
+  <footer>
+   <p>By choosing any options, you agree to the <a href="#">Open Source Applications Terms</a>.</p>
+  </footer>
+ </body>
+ <script src="./js/index.js"></script>
 </html>
