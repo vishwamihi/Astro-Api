@@ -3,7 +3,7 @@ FROM ubuntu:22.04
 ENV NODE_VERSION=20.x
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     ffmpeg \
     chromium \
@@ -62,31 +62,28 @@ RUN apt-get update && apt-get install -y \
     xdg-utils \
     wget \
     xvfb \
+    && curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION} | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g npm@latest yarn \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl -fsSL https://deb.nodesource.com/setup_${NODE_VERSION} | bash - \
-    && apt-get install -y nodejs \
-    && npm install -g npm@latest
-
-RUN npm install -g yarn
-
 # Create app directory
-WORKDIR /root
+WORKDIR /app
 
 # Install Puppeteer and its dependencies
 RUN npm init -y \
-    && npm install puppeteer \
+    && npm install puppeteer canvas \
     && groupadd -r pptruser && useradd -r -g pptruser -G audio,video pptruser \
     && mkdir -p /home/pptruser/Downloads \
-    && chown -R pptruser:pptruser /home/pptruser \
-    && chown -R pptruser:pptruser /root
+    && chown -R pptruser:pptruser /home/pptruser /app
 
-RUN npm install canvas
+# Clone repository and install dependencies
+RUN git clone https://github.com/FXastro/Astro-Api/ . \
+    && npm install
 
-COPY . .
-RUN git clone https://github.com/FXastro/Astro-Api/ .
-RUN npm install
 USER pptruser
 EXPOSE 3000
 ENV DISPLAY=:99
-CMD Xvfb :99 -screen 0 1024x768x16
+
+CMD Xvfb :99 -screen 0 1024x768x16 & npm start
