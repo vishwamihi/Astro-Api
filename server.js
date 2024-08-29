@@ -60,37 +60,6 @@ app.get('/runtime', (req, res) => {
   const runtime = new Date(uptime).toISOString().substr(11, 8)
   res.send(runtime)
 })
-app.post('/newsletter', async (req, res) => {
-  try {
-    const { email } = req.body
-    if (!email) {
-      return res.status(400).json({ success: false, message: 'Email is required' })
-    }
-
-    const filePath = path.join(__dirname, 'json', 'letters.json')
-    let emails = []
-
-    try {
-      const data = await fs.readFile(filePath, 'utf8')
-      emails = JSON.parse(data)
-    } catch (error) {}
-
-    if (emails.includes(email)) {
-      return res.status(400).json({ success: false, message: 'Email already subscribed' })
-    }
-
-    emails.push(email)
-    await fs.writeFile(filePath, JSON.stringify(emails, null, 2))
-
-    res.json({ success: true, message: 'Subscription successful' })
-  } catch (error) {
-    console.error('Error:', error)
-    res.status(500).json({ success: false, message: 'An error occurred' })
-  }
-})
-
-app.use('/', letters)
-
 app.get('/download/facebook', async (req, res) => {
   const { url } = req.query
   if (!url) {
