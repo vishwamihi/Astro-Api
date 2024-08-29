@@ -27,7 +27,6 @@ import { blackbox } from './exports/ai/blackbox.js'
 import { youtmp3 } from './exports/download/youtubeMp3.js'
 import { fetchScreenshot } from './exports/misc/ssweb.js'
 import { join } from 'path'
-import letters from './exports/index.js'
 import fs from 'fs/promises'
 const app = express()
 const port = process.env.PORT
