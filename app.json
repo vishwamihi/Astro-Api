@@ -2,17 +2,5 @@
   "name": "AstroApi",
   "description": "Get what you need",
   "success_url": "/",
-  "stack": "container",
-  "env": {
-    "PORT": {
-      "description": "https port",
-      "value": "5000"
-    }
-  },
-  "formation": {
-    "worker": {
-      "quantity": 1,
-      "size": "basic"
-    }
-  }
+  "stack": "container"
 }
