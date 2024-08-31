@@ -1,6 +1,6 @@
 # ASTRO API
 
-A simple API to quickly access the data you need.
+A simple API to quickly access the data you need. [Get Now](https://astro-api-v1-b263985f7644.herokuapp.com/dashboard)
 
 ## Installation
 
