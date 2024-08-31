@@ -2,6 +2,9 @@
 
 A simple API to quickly access the data you need. [Get Now](https://astro-api-v1-b263985f7644.herokuapp.com/dashboard)
 
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/FXastro/Astro-Api)
+
+
 ## Installation
 
 1. Clone the repo: `git clone https://github.com/FXastro/Astro-Api.git`
