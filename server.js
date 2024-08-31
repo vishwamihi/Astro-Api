@@ -8,6 +8,7 @@ import { promises as fsPromises } from 'fs'
 import express from 'express'
 import path from 'path'
 import { join } from 'path'
+import cors from 'cors'
 import fs from 'fs/promises'
 import { Buffer } from 'buffer'
 import QRCode from 'qrcode'
@@ -31,13 +32,22 @@ import { blackbox } from './exports/ai/blackbox.js'
 import { youtmp3 } from './exports/download/youtubeMp3.js'
 import { fetchScreenshot } from './exports/misc/ssweb.js'
 import { fetchSpotifyData } from './exports/download/spotify.js'
-import {getWeatherData} from './exports/search/weather.js'
+import { getWeatherData } from './exports/search/weather.js'
+import { gitStalk } from './exports/stalker/git.js'
+import { instaStalk } from './exports/stalker/insta.js'
+import { ipStalk } from './exports/stalker/ip.js'
+import { npmStalk } from './exports/stalker/npm.js'
+import { fetchNasaNews } from './exports/search/nasa.js'
+import { techNews } from './exports/search/technews.js'
+import { Telesticker } from './exports/download/telegram.js'
 const app = express()
 const port = process.env.PORT
 const startTime = new Date()
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
+
+app.use(cors())
 
 app.enable('trust proxy')
 app.set('json spaces', 2)
@@ -304,24 +314,39 @@ app.get('/search/wikimedia', async (req, res) => {
   }
 })
 
-app.get('/search/weather', async (req, res) => {
-  const { location } = req.query;
+app.get('/download/telesticker', async (req, res) => {
+  const { url } = req.query
 
-  if (!location) {
-    return res.status(400).json({ error: 'Location query parameter is required.' });
+  if (!url) {
+    return res.status(400).json({ error: 'URL query parameter is required' })
   }
 
   try {
-    const weatherResult = await getWeatherData(location);
+    const stickers = await Telesticker(url)
+    res.json(stickers)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
+
+app.get('/search/weather', async (req, res) => {
+  const { location } = req.query
+
+  if (!location) {
+    return res.status(400).json({ error: 'Location query parameter is required.' })
+  }
+
+  try {
+    const weatherResult = await getWeatherData(location)
     return res.status(200).json({
       creator: 'Astro',
-      data: weatherResult
-    });
+      data: weatherResult,
+    })
   } catch (error) {
-    console.error('Error fetching weather data:', error);
-    return res.status(500).json({ error: 'Failed to fetch weather data.' });
+    console.error('Error fetching weather data:', error)
+    return res.status(500).json({ error: 'Failed to fetch weather data.' })
   }
-});
+})
 
 app.get('/search/google', async (req, res) => {
   const query = req.query.q
@@ -427,6 +452,26 @@ app.get('/search/apk', async (req, res) => {
       message: 'An error occurred while searching for the APK',
       error: error.message,
     })
+  }
+})
+
+app.get('/search/nasa-news', async (req, res) => {
+  const { date } = req.query
+
+  try {
+    const news = await fetchNasaNews(date)
+    res.json(news)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+})
+
+app.get('/search/tech-news', async (req, res) => {
+  try {
+    const news = await techNews()
+    res.json(news)
+  } catch (error) {
+    res.status(500).json({ error: error.message })
   }
 })
 
@@ -541,20 +586,73 @@ app.get('/misc/screenshot', async (req, res) => {
 })
 
 app.get('/stalker/gituser', async (req, res) => {
-  const username = req.query.username; // Get username from query parameter
+  const username = req.query.username // Get username from query parameter
 
   if (!username) {
-    return res.status(400).json({ status: 'error', message: 'Username query parameter is required.' });
+    return res.status(400).json({ status: 'error', message: 'Username query parameter is required.' })
   }
 
   try {
-    const userDetails = await gitStalk(username);
-    res.status(220).json({ status: 'success', data: userDetails });
+    const userDetails = await gitStalk(username)
+    res.status(220).json({ status: 'success', data: userDetails })
   } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ status: 'error', message: error.message });
+    console.error('Error:', error)
+    res.status(500).json({ status: 'error', message: error.message })
   }
-});
+})
+
+app.get('/stalker/instauser', async (req, res) => {
+  const username = req.query.username // Get username from query parameter
+
+  if (!username) {
+    return res.status(400).json({ status: 'error', message: 'Username query parameter is required.' })
+  }
+
+  try {
+    const userDetails = await instaStalk(username)
+
+    if (userDetails) {
+      res.status(220).json({ Creator: 'Astro', status: '200', data: userDetails })
+    } else {
+      res.status(500).json({ status: 'error', message: 'Failed to fetch user data from Instagram.' })
+    }
+  } catch (error) {
+    console.error('Error:', error)
+    res.status(500).json({ status: 'error', message: error.message })
+  }
+})
+
+app.get('/stalker/ip', async (req, res) => {
+  const ipAddress = req.query.ip // Get IP address from query parameter
+
+  if (!ipAddress) {
+    return res.status(400).json({ status: 'error', message: 'IP address query parameter is required.' })
+  }
+
+  try {
+    const ipDetails = await ipStalk(ipAddress)
+    res.status(220).json({ status: 'success', data: ipDetails })
+  } catch (error) {
+    console.error('Error:', error)
+    res.status(500).json({ status: 'error', message: error.message })
+  }
+})
+
+app.get('/stalker/npm-package', async (req, res) => {
+  const packageName = req.query.package // Get package name from query parameter
+
+  if (!packageName) {
+    return res.status(400).json({ status: 'error', message: 'Package name query parameter is required.' })
+  }
+
+  try {
+    const packageDetails = await npmStalk(packageName)
+    res.status(220).json({ status: 'success', data: packageDetails })
+  } catch (error) {
+    console.error('Error:', error)
+    res.status(500).json({ status: 'error', message: error.message })
+  }
+})
 
 app.get('/misc/base64/encode', (req, res) => {
   const { text } = req.query

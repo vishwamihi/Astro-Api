@@ -2,7 +2,8 @@ import axios from 'axios';
 
 const IPINFO_API_URL = 'https://ipinfo.io/';
 const API_TOKEN = '1210f3e9224667'; 
-async function ipStalk(ipAddress) {
+
+export async function ipStalk(ipAddress) {
   if (!ipAddress) {
     throw new Error('IP address is required.');
   }
@@ -11,6 +12,9 @@ async function ipStalk(ipAddress) {
     const response = await axios.get(`${IPINFO_API_URL}${ipAddress}?token=${API_TOKEN}`);
     const data = response.data;
 
+    // Check if `loc` is available and formatted correctly
+    const [latitude, longitude] = data.loc ? data.loc.split(',') : [null, null];
+
     const ipDetails = {
       ip: data.ip,
       hostname: data.hostname,
@@ -18,13 +22,12 @@ async function ipStalk(ipAddress) {
       region: data.region,
       country: data.country,
       location: {
-        latitude: data.loc.split(',')[0],
-        longitude: data.loc.split(',')[1],
+        latitude: latitude || 'Unknown',
+        longitude: longitude || 'Unknown',
       },
       organization: data.org,
       postal: data.postal,
       timezone: data.timezone,
-      readme: 'https://ipinfo.io/', // Link to the documentation
     };
 
     return ipDetails;
@@ -33,5 +36,3 @@ async function ipStalk(ipAddress) {
     throw new Error('Failed to fetch IP data.');
   }
 }
-
-export { ipStalk };
