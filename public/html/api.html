@@ -3,331 +3,238 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
-    <link rel="stylesheet" href="../css/api.css" />
+    <title>Dashboard API</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
   </head>
   <body>
-    <div class="loader"></div>
-    <div class="content" style="display: none">
-      <header>
-        <div id="runtime-box">
-          <p>Runtime API Server</p>
-          <p id="runtime">Loading...</p>
+    <header>
+      <div class="logo">IntegrationHUB</div>
+      <input type="checkbox" id="theme-toggle" class="theme-toggle" />
+      <label for="theme-toggle" class="toggle-label"></label>
+    </header>
+    <div class="container">
+      <!-- Downloaders Table -->
+      <div class="table-section">
+        <h3>Downloaders</h3>
+        <div class="table-wrapper">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Url</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Youtube</td>
+                <td>Downloads Youtube Videos</td>
+                <td><button class="action-btn" onclick="window.open('/download/youtube?url=https://youtu.be/aAZaY19tO80?si=PWqAgX7cVRUwdExi', '_blank')">Download</button></td>
+              </tr>
+              <tr>
+                <td>Facebook</td>
+                <td>Downloads Facebook Videos</td>
+                <td><button class="action-btn" onclick="window.open('/download/facebook?url=https://web.facebook.com/watch/?v=848752075773738', '_blank')">Download</button></td>
+              </tr>
+              <tr>
+                <td>YoutubeMp3</td>
+                <td>Downloads Youtube Music</td>
+                <td><button class="action-btn" onclick="window.open('/download/ytmp3?url=https://music.youtube.com/watch?v=MUOklA5LFz0&si=F5e0JmwqWfSHmMh9', '_blank')">Download</button></td>
+              </tr>
+              <tr>
+                <td>Instagram</td>
+                <td>Downloads Instagram Media</td>
+                <td><button class="action-btn" onclick="window.open('/download/instagram?url=https://www.instagram.com/reel/C8RvwWqtAl9/?utm_source=ig_web_button_share_sheet', '_blank')">Download</button></td>
+              </tr>
+              <tr>
+                <td>Twitter</td>
+                <td>Downloads Twitter X Videos</td>
+                <td><button class="action-btn" onclick="window.open('/download/twitter?url=https://x.com/elonmusk/status/1823742501884453312', '_blank')">Download</button></td>
+              </tr>
+              <tr>
+                <td>Tiktok</td>
+                <td>Downloads Tiktok Videos</td>
+                <td><button class="action-btn" onclick="window.open('/download/tiktok?url=https://www.tiktok.com/@brainjotter/video/7405287002419121414?is_from_webapp=1&sender_device=pc', '_blank')">Download</button></td>
+              </tr>
+              <tr>
+                <td>Pinterest</td>
+                <td>Downloads Pinterest Images</td>
+                <td><button class="action-btn" onclick="window.open('/download/pinterest?query=cars', '_blank')">Download</button></td>
+              </tr>
+              <tr>
+                <td>Spotify</td>
+                <td>Downloads Spotify Music</td>
+                <td><button class="action-btn" onclick="window.open('/download/spotify?url=https://open.spotify.com/track/1ko2lVN0vKGUl9zrU0qSlT?si=becbc527a2d64c25', '_blank')">Download</button></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <button id="toggle-mode">Toggle Mode</button>
-      </header>
+      </div>
 
-      <!-- Social Media Section -->
-      <section class="api-section">
-        <h2>Social Media</h2>
-        <div class="list">
-          <div class="list-item">
-            <div class="title">Facebook</div>
-            <div class="description">Download Facebook media</div>
-            <div class="usage">
-              <button><a href="../download/facebook?url=https://www.facebook.com/100069007765318/posts/725316089778643/?mibextid=rS40aB7S9Ucbxw6v">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Instagram</div>
-            <div class="description">Download Instagram media</div>
-            <div class="usage">
-              <button><a href="../download/instagram?url=https://www.instagram.com/reel/C9bjQfRprHK/?img_index=we.are.messi">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Tiktok</div>
-            <div class="description">Download Tiktok media</div>
-            <div class="usage">
-              <button><a href="../download/tiktok?url=https://www.tiktok.com/@brainjotter/video/7393109337524178181?is_from_webapp=1&sender_device=pc&web_id=7402142833056220677">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Twitter</div>
-            <div class="description">Download Twitter media</div>
-            <div class="usage">
-              <button><a href="../download/twitter?url=https://twitter.com/elonmusk/status/1822355008559489216?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Etweet">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Youtube</div>
-            <div class="description">Download Youtube Video</div>
-            <div class="usage">
-              <button><a href="../download/youtube?url=https://youtu.be/xozgvccBHk8?si=91PFTHJthOVRUSS-">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Youtube Mp3</div>
-            <div class="description">Download Youtube audio</div>
-            <div class="usage">
-              <button><a href="../download/ytmp3?url=https://music.youtube.com/watch?v=6POZlJAZsok&si=FgIl9XCg__1V8m4_">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Pinterest</div>
-            <div class="description">Download Pinterest media</div>
-            <div class="usage">
-              <button><a href="../download/pinterest?query=cats">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Apk Download</div>
-            <div class="description">Download Android Apps</div>
-            <div class="usage">
-              <button><a href="../download/apk?appName=">Check</a></button>
-            </div>
-          </div>
+      <!-- Search Section -->
+      <div class="table-section">
+        <h3>Search Tools</h3>
+        <div class="table-wrapper">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Url</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Google Search</td>
+                <td>Performs a Google search</td>
+                <td><button class="action-btn" onclick="window.open('/search/google?q=node%js', '_blank')">Search</button></td>
+              </tr>
+              <tr>
+                <td>Bing Search</td>
+                <td>Performs a Bing search</td>
+                <td><button class="action-btn" onclick="window.open('/search/bing?query=cars', '_blank')">Search</button></td>
+              </tr>
+              <tr>
+                <td>Wikipedia</td>
+                <td>Performs a Wiki Search</td>
+                <td><button class="action-btn" onclick="window.open('/search/wikipedia?title=elon%musk', '_blank')">Search</button></td>
+              </tr>
+              <tr>
+                <td>Apk Search</td>
+                <td>Performs a Android App Search</td>
+                <td><button class="action-btn" onclick="window.open('/search/apk?appName=whatsapp', '_blank')">Search</button></td>
+              </tr>
+              <tr>
+                <td>Weather Search</td>
+                <td>Performs a Weather Data Search</td>
+                <td><button class="action-btn" onclick="window.open('/search/weather?location=london', '_blank')">Search</button></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </section>
-      <section class="api-section">
-        <h2>Search</h2>
+      </div>
 
-        <div class="list">
-          <div class="list-item">
-            <div class="title">Wikimedia Search</div>
-            <div class="description">Get Wikimedia Info</div>
-            <div class="usage">
-              <button><a href="../search/wikimedia?title=elon%20musk">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Google Search</div>
-            <div class="description">Search Google</div>
-            <div class="usage">
-              <button><a href="../search/google?q=whiskeysockets%baileys">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Bing Search</div>
-            <div class="description">Search Microsoft Bing</div>
-            <div class="usage">
-              <button><a href="../search/bing?query=books">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Wikipedia Search</div>
-            <div class="description">Search Wikipedia</div>
-            <div class="usage">
-              <button><a href="../search/wikipedia?title=Javascript">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Apk Search</div>
-            <div class="description">Search For Android Apps</div>
-            <div class="usage">
-              <button><a href="../search/apk?appName==whatsapp">Check</a></button>
-            </div>
-          </div>
+      <!-- AI Tools Section -->
+      <div class="table-section">
+        <h3>AI Tools</h3>
+        <div class="table-wrapper">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Url</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ChatGPT</td>
+                <td>Interact with OpenAI's GPT</td>
+                <td><button class="action-btn" onclick="window.open('/ai/chatgpt?q=what%is%life', '_blank')">Chat</button></td>
+              </tr>
+              <tr>
+                <td>BlackBox</td>
+                <td>Code With BlackBox Ai</td>
+                <td><button class="action-btn" onclick="window.open('/ai/blackbox?q=write%hello%world&in%10&programming%languages', '_blank')">Chat</button></td>
+              </tr>
+              <tr>
+                <td>Eleven Labs</td>
+                <td>Generates audio based on text</td>
+                <td><button class="action-btn" onclick="window.open('/ai/generate-audio?text=Hello%2C%20this%20is%20a%20test%20audio%20generation.', '_blank')">Generate</button></td>
+              </tr>
+              <tr>
+                <td>DALL·E</td>
+                <td>Generates images based on text</td>
+                <td><button class="action-btn" onclick="window.open('/ai/dalle?prompt=hello%world', '_blank')">Generate</button></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </section>
+      </div>
 
-      <section class="api-section">
-        <h2>AI</h2>
-
-        <div class="list">
-          <div class="list-item">
-            <div class="title">Chat Gpt4</div>
-            <div class="description">Chat with Ai</div>
-            <div class="usage">
-              <button><a href="../ai/chatgpt?q=What%is%life">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Eleven Labs Ai</div>
-            <div class="description">Text to Speech Ai</div>
-            <div class="usage">
-              <button><a href="../ai/generate-audio?text=hello%i%am%an%Ai%text%to%speech">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Black Box</div>
-            <div class="description">Chat With BlackBox Ai</div>
-            <div class="usage">
-              <button><a href="../ai/blackbox?q=write%a%python%code%to%test%a%server">Check</a></button>
-            </div>
-          </div>
+      <!-- Stalker Tools Sections -->
+      <div class="table-section">
+        <h3>Stalker Tools</h3>
+        <div class="table-wrapper">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Url</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Git Stalker</td>
+                <td>Scapes GitUser Details</td>
+                <td><button class="action-btn" onclick="window.open('/stalker/gituser?username=FXastro', '_blank')">Scape User</button></td>
+              </tr>
+              <tr>
+                <td>QR Code Generator</td>
+                <td>Generates a QR code for a given URL</td>
+                <td><button class="action-btn" onclick="window.open('/misc/qrcode?url=YOUR_URL_HERE', '_blank')">Generate QR</button></td>
+              </tr>
+              <tr>
+                <td>Base64 Encoder</td>
+                <td>Encodes text to Base64</td>
+                <td><button class="action-btn" onclick="window.open('/misc/base64/encode?text=YOUR_TEXT_HERE', '_blank')">Encode Data</button></td>
+              </tr>
+              <tr>
+                <td>Base64 Decoder</td>
+                <td>Decode Base64 to text</td>
+                <td><button class="action-btn" onclick="window.open('/misc/base64/decode?text=YOUR_TEXT_HERE', '_blank')">Decode Data</button></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </section>
+      </div>
 
-      <section class="api-section">
-        <h2>Misc</h2>
-
-        <div class="list">
-          <div class="list-item">
-            <div class="title">Screen Shot</div>
-            <div class="description">Get Web ScreenShot</div>
-            <div class="usage">
-              <button><a href="../misc/screenshot?url=github.com">Check</a></button>
-            </div>
-          </div>
+      <!-- Miscellaneous Tools Section -->
+      <div class="table-section">
+        <h3>Extra Tools</h3>
+        <div class="table-wrapper">
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Url</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Random Joke Generator</td>
+                <td>Generates Random Joke</td>
+                <td><button class="action-btn" onclick="window.open('/fun/random-joke', '_blank')">Generate Jokes</button></td>
+              </tr>
+              <tr>
+                <td>QR Code Generator</td>
+                <td>Generates a QR code for a given URL</td>
+                <td><button class="action-btn" onclick="window.open('/misc/qrcode?url=YOUR_URL_HERE', '_blank')">Generate QR</button></td>
+              </tr>
+              <tr>
+                <td>Base64 Encoder</td>
+                <td>Encodes text to Base64</td>
+                <td><button class="action-btn" onclick="window.open('/misc/base64/encode?text=YOUR_TEXT_HERE', '_blank')">Encode Data</button></td>
+              </tr>
+              <tr>
+                <td>Base64 Decoder</td>
+                <td>Decode Base64 to text</td>
+                <td><button class="action-btn" onclick="window.open('/misc/base64/decode?text=YOUR_TEXT_HERE', '_blank')">Decode Data</button></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-      </section>
+      </div>
 
-      <section class="api-section">
-        <h2>Fun</h2>
-
-        <div class="list">
-          <div class="list-item">
-            <div class="title">Jokes</div>
-            <div class="description">Get Random Jokes</div>
-            <div class="usage">
-              <button><a href="../fun/random-joke">Check</a></button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="api-section">
-        <h2>Anime</h2>
-
-        <div class="list">
-          <div class="list-item">
-            <div class="title">Angry</div>
-            <div class="description">Get Random Anime</div>
-            <div class="usage">
-              <button><a href="../anime/angry">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Clam Down</div>
-            <div class="description">Get Random Anime</div>
-            <div class="usage">
-              <button><a href="../anime/calm-down">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Confused</div>
-            <div class="description">Get Random Anime</div>
-            <div class="usage">
-              <button><a href="../anime/confused">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Dance</div>
-            <div class="description">Get Random Anime</div>
-            <div class="usage">
-              <button><a href="../anime/dance">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Embarrassed</div>
-            <div class="description">Get Random Anime</div>
-            <div class="usage">
-              <button><a href="../anime/embarrassed-nervous">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Happy</div>
-            <div class="description">Get Random Anime</div>
-            <div class="usage">
-              <button><a href="../anime/happy">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Lunch Break</div>
-            <div class="description">Get Random Anime</div>
-            <div class="usage">
-              <button><a href="../anime/lunch-break-time">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Misc</div>
-            <div class="description">Get Random Anime</div>
-            <div class="usage">
-              <button><a href="../anime/misc">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">No</div>
-            <div class="description">Get Random Anime</div>
-            <div class="usage">
-              <button><a href="../anime/no">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Pre Exercise</div>
-            <div class="description">Get Random Anime</div>
-            <div class="usage">
-              <button><a href="../anime/pre-exercise">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Sad</div>
-            <div class="description">Get Random Anime</div>
-            <div class="usage">
-              <button><a href="../anime/sad">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Smug</div>
-            <div class="description">Get Random Anime</div>
-            <div class="usage">
-              <button><a href="../anime/smug">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Smug</div>
-            <div class="description">Get Random Anime</div>
-            <div class="usage">
-              <button><a href="../anime/smug">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Surprised</div>
-            <div class="description">Get Random Anime</div>
-            <div class="usage">
-              <button><a href="../anime/surprised">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Thinking</div>
-            <div class="description">Get Random Anime</div>
-            <div class="usage">
-              <button><a href="../anime/thinking">Check</a></button>
-            </div>
-          </div>
-
-          <div class="list-item">
-            <div class="title">Yes</div>
-            <div class="description">Get Random Anime</div>
-            <div class="usage">
-              <button><a href="../anime/yes">Check</a></button>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
-    <script src="../js/loader.js"></script>
-    <script src="../js/toggleMode.js"></script>
+    <footer>
+      <p>&copy; 2024 Astro. All rights reserved.</p>
+    </footer>
+    <script src="../js/dashboard.js"></script>
   </body>
 </html>

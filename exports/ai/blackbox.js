@@ -14,21 +14,13 @@ export async function blackbox(message) {
       isChromeExt: false,
       githubToken: null,
     })
+    let filteredResponse = response.data.replace(/\$@\$v=(v1\.21|v1\.22|undefined)-rv1\$@\$/g, '')
 
-    // Filter out both $@$v=v1.21-rv1$@$ and $@$v=undefined-rv1$@$ patterns from the response
-    let filteredResponse = response.data.replace(/\$@\$v=(v1\.21|undefined)-rv1\$@\$/g, '')
+    filteredResponse = filteredResponse.trim()
 
     return filteredResponse
   } catch (error) {
-    console.error(error)
+    console.error('Error in blackbox function:', error)
     throw error
   }
 }
-
-// blackbox('What is life, in 10 words')
-//   .then((response) => {
-//     console.log(response);
-//   })
-//   .catch((error) => {
-//     console.error(error);
-//   });

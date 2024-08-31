@@ -3,9 +3,14 @@ const __dirname = path.dirname(__filename)
 
 import dotenv from 'dotenv'
 dotenv.config({ path: path.join(__dirname, '.env') })
-
+import { createReadStream, unlink } from 'fs'
+import { promises as fsPromises } from 'fs'
 import express from 'express'
 import path from 'path'
+import { join } from 'path'
+import fs from 'fs/promises'
+import { Buffer } from 'buffer'
+import QRCode from 'qrcode'
 import { fileURLToPath } from 'url'
 import { readdirSync, statSync } from 'fs'
 import { facebook } from './exports/download/facebook.js'
@@ -16,7 +21,6 @@ import { tiktok } from './exports/download/tiktok.js'
 import { pinterest } from './exports/download/pinterest.js'
 import { wikimedia } from './exports/search/wikimedia.js'
 import { GoogleSearch } from './exports/search/google.js'
-import { fetchWeatherData } from './exports/search/weather.js'
 import { randomJoke } from './exports/fun/jokes.js'
 import { fetchChatGPTData } from './exports/ai/chatGpt4.js'
 import { Bing } from './exports/search/bing.js'
@@ -26,8 +30,8 @@ import { apkSearch } from './exports/search/apk.js'
 import { blackbox } from './exports/ai/blackbox.js'
 import { youtmp3 } from './exports/download/youtubeMp3.js'
 import { fetchScreenshot } from './exports/misc/ssweb.js'
-import { join } from 'path'
-import fs from 'fs/promises'
+import { fetchSpotifyData } from './exports/download/spotify.js'
+import {getWeatherData} from './exports/search/weather.js'
 const app = express()
 const port = process.env.PORT
 const startTime = new Date()
@@ -254,6 +258,22 @@ app.get('/download/pinterest', async (req, res) => {
   }
 })
 
+app.get('/download/spotify', async (req, res) => {
+  const { url } = req.query
+
+  if (!url) {
+    return res.status(400).json({ error: 'URL parameter is required.' })
+  }
+
+  try {
+    const data = await fetchSpotifyData(url)
+    return res.status(200).json({ creator: 'Astro', status: 200, success: true, data })
+  } catch (error) {
+    console.error('Error fetching data:', error)
+    return res.status(500).json({ error: 'An error occurred while fetching data.' })
+  }
+})
+
 app.get('/search/wikimedia', async (req, res) => {
   const { title } = req.query
   if (!title) {
@@ -284,6 +304,25 @@ app.get('/search/wikimedia', async (req, res) => {
   }
 })
 
+app.get('/search/weather', async (req, res) => {
+  const { location } = req.query;
+
+  if (!location) {
+    return res.status(400).json({ error: 'Location query parameter is required.' });
+  }
+
+  try {
+    const weatherResult = await getWeatherData(location);
+    return res.status(200).json({
+      creator: 'Astro',
+      data: weatherResult
+    });
+  } catch (error) {
+    console.error('Error fetching weather data:', error);
+    return res.status(500).json({ error: 'Failed to fetch weather data.' });
+  }
+});
+
 app.get('/search/google', async (req, res) => {
   const query = req.query.q
 
@@ -297,37 +336,6 @@ app.get('/search/google', async (req, res) => {
 
   const searchResult = await GoogleSearch(query)
   res.status(searchResult.status).json(searchResult)
-})
-
-app.get('/search/weather', async (req, res) => {
-  const { apiKey, location, days } = req.query
-
-  if (!apiKey || !location || !days) {
-    return res.status(400).json({
-      creator: 'Astro',
-      status: 400,
-      success: false,
-      message: 'API key, location, and days parameters are required',
-    })
-  }
-
-  try {
-    const result = await fetchWeatherData(apiKey, location, days)
-    res.status(200).json({
-      creator: 'Astro',
-      status: 200,
-      success: true,
-      result,
-    })
-  } catch (error) {
-    res.status(500).json({
-      creator: 'Astro',
-      status: 500,
-      success: false,
-      message: 'An error occurred while fetching weather data',
-      error: error.message,
-    })
-  }
 })
 
 app.get('/search/bing', async (req, res) => {
@@ -487,13 +495,13 @@ app.get('/ai/generate-audio', async (req, res) => {
     res.setHeader('Content-Disposition', `attachment; filename="${path.basename(audioPath)}"`)
 
     // Create a read stream and pipe it to the response
-    const fileStream = fs.createReadStream(fullPath)
+    const fileStream = createReadStream(fullPath)
     fileStream.pipe(res)
 
     // Delete the file after sending
     fileStream.on('end', () => {
-      fs.unlink(fullPath, (err) => {
-        if (err) console.error('Error deleting file:', err)
+      fsPromises.unlink(fullPath).catch((err) => {
+        console.error('Error deleting file:', err)
       })
     })
   } catch (error) {
@@ -529,6 +537,73 @@ app.get('/misc/screenshot', async (req, res) => {
   } catch (err) {
     console.error(err)
     res.status(500).json({ error: 'Failed to generate screenshot' })
+  }
+})
+
+app.get('/stalker/gituser', async (req, res) => {
+  const username = req.query.username; // Get username from query parameter
+
+  if (!username) {
+    return res.status(400).json({ status: 'error', message: 'Username query parameter is required.' });
+  }
+
+  try {
+    const userDetails = await gitStalk(username);
+    res.status(220).json({ status: 'success', data: userDetails });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ status: 'error', message: error.message });
+  }
+});
+
+app.get('/misc/base64/encode', (req, res) => {
+  const { text } = req.query
+
+  if (!text) {
+    return res.status(400).json({ error: 'Text query parameter is required' })
+  }
+
+  try {
+    const base64Encoded = Buffer.from(text).toString('base64')
+    res.json({ result: base64Encoded })
+  } catch (error) {
+    console.error('Error encoding to base64:', error)
+    res.status(500).json({ error: 'Failed to encode text to base64' })
+  }
+})
+
+// Base64 decoding route
+app.get('/misc/base64/decode', (req, res) => {
+  const { text } = req.query
+
+  if (!text) {
+    return res.status(400).json({ error: 'Text query parameter is required' })
+  }
+
+  try {
+    const decodedText = Buffer.from(text, 'base64').toString('utf-8')
+    res.json({ result: decodedText })
+  } catch (error) {
+    console.error('Error decoding from base64:', error)
+    res.status(500).json({ error: 'Failed to decode base64 to text' })
+  }
+})
+
+// QR code generation route
+app.get('/misc/qrcode', async (req, res) => {
+  const { url } = req.query
+
+  if (!url) {
+    return res.status(400).json({ error: 'URL query parameter is required' })
+  }
+
+  try {
+    const qrCodeDataURL = await QRCode.toDataURL(url)
+    res.type('png')
+    res.send(Buffer.from(qrCodeDataURL.split(',')[1], 'base64'))
+  } catch (error) {
+    console.error('Error generating QR code:', error)
+    res.status(500).json({ error: 'Failed to generate QR code' })
   }
 })
 
