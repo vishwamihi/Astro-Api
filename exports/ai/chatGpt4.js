@@ -1,6 +1,12 @@
 import fetch from 'node-fetch'
 
-const API_URL = 'https://api.maher-zubair.tech/ai/chatgpt4?q='
+function numGen(length = 13) {
+  const min = Math.pow(10, length - 1)
+  const max = Math.pow(10, length) - 1
+  return Math.floor(Math.random() * (max - min + 1)) + min
+}
+const number = numGen
+const API_URL = 'https://gpt4.guruapi.tech/user?username=GURU_BOT_' + number + '&query='
 
 export async function fetchChatGPTData(query) {
   return fetch(`${API_URL}${encodeURIComponent(query)}`)
@@ -12,12 +18,12 @@ export async function fetchChatGPTData(query) {
     })
 }
 
-// const query = 'What is the meaning of life?';
+// const query = 'What is the meaning of life?'
 
 // fetchChatGPTData(query)
 //   .then((data) => {
-//     console.log('Received data:', data);
+//     console.log('Received data:', data)
 //   })
 //   .catch((error) => {
-//     console.error('Error:', error);
-//   });
+//     console.error('Error:', error)
+//   })
