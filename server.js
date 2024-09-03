@@ -40,6 +40,36 @@ import { npmStalk } from './exports/stalker/npm.js'
 import { fetchNasaNews } from './exports/search/nasa.js'
 import { techNews } from './exports/search/technews.js'
 import { Telesticker } from './exports/download/telegram.js'
+import { glossysilver } from './exports/logo/ephoto360.js'
+import { writetext } from './exports/logo/ephoto360.js'
+import { blackpinklogo } from './exports/logo/ephoto360.js'
+import { glitchtext } from './exports/logo/ephoto360.js'
+import { advancedglow } from './exports/logo/ephoto360.js'
+import { typographytext } from './exports/logo/ephoto360.js'
+import { pixelglitch } from './exports/logo/ephoto360.js'
+import { neonglitch } from './exports/logo/ephoto360.js'
+import { nigerianflag } from './exports/logo/ephoto360.js'
+import { americanflag } from './exports/logo/ephoto360.js'
+import { deletingtext } from './exports/logo/ephoto360.js'
+import { blackpinkstyle } from './exports/logo/ephoto360.js'
+import { glowingtext } from './exports/logo/ephoto360.js'
+import { underwater } from './exports/logo/ephoto360.js'
+import { logomaker } from './exports/logo/ephoto360.js'
+import { cartoonstyle } from './exports/logo/ephoto360.js'
+import { papercut } from './exports/logo/ephoto360.js'
+import { watercolor } from './exports/logo/ephoto360.js'
+import { effectclouds } from './exports/logo/ephoto360.js'
+import { gradienttext } from './exports/logo/ephoto360.js'
+import { summerbeach } from './exports/logo/ephoto360.js'
+import { luxurygold } from './exports/logo/ephoto360.js'
+import { multicolored } from './exports/logo/ephoto360.js'
+import { sandsummer } from './exports/logo/ephoto360.js'
+import { galaxy } from './exports/logo/ephoto360.js'
+import { nineteenseventeen } from './exports/logo/ephoto360.js'
+import { makingneon } from './exports/logo/ephoto360.js'
+import { texteffect } from './exports/logo/ephoto360.js'
+import { galaxystyle } from './exports/logo/ephoto360.js'
+import { lighteffect } from './exports/logo/ephoto360.js'
 const app = express()
 const port = process.env.PORT
 const startTime = new Date()
@@ -73,6 +103,481 @@ app.get('/runtime', (req, res) => {
   const runtime = new Date(uptime).toISOString().substr(11, 8)
   res.send(runtime)
 })
+app.get('/api/ephoto360/glossysilver', async (req, res) => {
+  const text = req.query.text
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' })
+  }
+
+  try {
+    const result = await glossysilver(text)
+    res.json({
+      creator: 'Astro',
+      status: 200,
+      success: true,
+      result,
+    })
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error)
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' })
+  }
+})
+
+app.get('/api/ephoto360/writetext', async (req, res) => {
+  const text = req.query.text
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' })
+  }
+
+  try {
+    const result = await writetext(text)
+    res.json({
+      creator: 'Astro',
+      status: 200,
+      success: true,
+      result,
+    })
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error)
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' })
+  }
+})
+app.get('/api/ephoto360/blackpinklogo', async (req, res) => {
+  const text = req.query.text
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' })
+  }
+
+  try {
+    const result = await blackpinklogo(text)
+    res.json({
+      creator: 'Astro',
+      status: 200,
+      success: true,
+      result,
+    })
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error)
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' })
+  }
+})
+
+app.get('/api/ephoto360/glitchtext', async (req, res) => {
+  const text = req.query.text
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' })
+  }
+
+  try {
+    const result = await glitchtext(text)
+    res.json({
+      creator: 'Astro',
+      status: 200,
+      success: true,
+      result,
+    })
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error)
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' })
+  }
+})
+
+
+app.get('/api/ephoto360/advancedglow', async (req, res) => {
+  const text = req.query.text
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' })
+  }
+
+  try {
+    const result = await advancedglow(text)
+    res.json({
+      creator: 'Astro',
+      status: 200,
+      success: true,
+      result,
+    })
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error)
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' })
+  }
+})
+
+app.get('/api/ephoto360/typographytext', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await typographytext(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/pixelglitch', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await pixelglitch(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/neonglitch', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await neonglitch(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/nigerianflag', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await nigerianflag(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/americanflag', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await americanflag(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/deletingtext', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await deletingtext(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/blackpinkstyle', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await blackpinkstyle(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/glowingtext', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await glowingtext(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/underwater', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await underwater(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/logomaker', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await logomaker(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/cartoonstyle', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await cartoonstyle(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/papercut', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await papercut(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/watercolor', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await watercolor(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/effectclouds', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await effectclouds(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/gradienttext', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await gradienttext(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/summerbeach', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await summerbeach(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/luxurygold', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await luxurygold(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/multicolored', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await multicolored(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/sandsummer', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await sandsummer(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/galaxy', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await galaxy(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/nineteenseventeen', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await nineteenseventeen(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/makingneon', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await makingneon(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/texteffect', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await texteffect(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/galaxystyle', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await galaxystyle(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/ephoto360/lighteffect', async (req, res) => {
+  const text = req.query.text;
+  if (!text) {
+    return res.status(400).json({ creator: 'Astro', status: 400, success: false, error: 'Missing query parameter' });
+  }
+
+  try {
+    const result = await lighteffect(text);
+    res.json({ creator: 'Astro', status: 200, success: true, result });
+  } catch (error) {
+    console.error('Error fetching ephoto360 data:', error);
+    res.status(500).json({ creator: 'Astro', status: 500, success: false, error: 'Internal Server Error' });
+  }
+});
+
 app.get('/download/facebook', async (req, res) => {
   const { url } = req.query
   if (!url) {
