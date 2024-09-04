@@ -72,7 +72,7 @@ export async function glossysilver(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -149,7 +149,7 @@ export async function writetext(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -226,7 +226,7 @@ export async function blackpinklogo(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -303,7 +303,7 @@ export async function glitchtext(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -380,7 +380,7 @@ export async function advancedglow(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -457,7 +457,7 @@ export async function typographytext(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -534,7 +534,7 @@ export async function pixelglitch(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -611,7 +611,7 @@ export async function neonglitch(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -688,7 +688,7 @@ export async function nigerianflag(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -765,7 +765,7 @@ export async function americanflag(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -842,7 +842,7 @@ export async function deletingtext(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -919,7 +919,7 @@ export async function blackpinkstyle(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -996,7 +996,7 @@ export async function glowingtext(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -1073,7 +1073,7 @@ export async function underwater(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -1150,7 +1150,7 @@ export async function logomaker(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -1227,7 +1227,7 @@ export async function cartoonstyle(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -1304,7 +1304,7 @@ export async function papercut(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -1381,7 +1381,7 @@ export async function watercolor(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -1458,7 +1458,7 @@ export async function effectclouds(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -1535,7 +1535,7 @@ export async function gradienttext(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -1612,7 +1612,7 @@ export async function summerbeach(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -1689,7 +1689,7 @@ export async function luxurygold(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -1766,7 +1766,7 @@ export async function multicolored(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -1843,7 +1843,7 @@ export async function sandsummer(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -1920,7 +1920,7 @@ export async function galaxy(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -1997,7 +1997,7 @@ export async function nineteenseventeen(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -2074,7 +2074,7 @@ export async function makingneon(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -2151,7 +2151,7 @@ export async function texteffect(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
@@ -2228,7 +2228,7 @@ export async function galaxystyle(text) {
       session_id: datas.session_id, // Keep the 'session_id' field
     }
 
-    return { gifted: filteredData }
+    return { Astro: filteredData }
   } catch (error) {
     console.error('Error creating logo:', error.message)
     return { error: error.message }
