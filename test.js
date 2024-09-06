@@ -1,76 +1,28 @@
 import axios from 'axios';
 
-/**
- * Processes a request with the Cobalt API.
- *
- * @param {string} requestUrl - The URL to process with the Cobalt API.
- * @param {object} [options] - Optional parameters for the request.
- * @param {string} [options.vCodec='h264'] - Video codec.
- * @param {string} [options.vQuality='720'] - Video quality.
- * @param {string} [options.aFormat='mp3'] - Audio format.
- * @param {string} [options.filenamePattern='classic'] - Filename pattern.
- * @param {boolean} [options.isAudioOnly=false] - Whether to download audio only.
- * @param {boolean} [options.isTTFullAudio=false] - Whether to download full audio for TikTok.
- * @param {boolean} [options.isAudioMuted=false] - Whether to mute audio in video downloads.
- * @param {boolean} [options.dubLang=false] - Whether to use Accept-Language header for YouTube audio.
- * @param {boolean} [options.disableMetadata=false] - Whether to disable file metadata.
- * @param {boolean} [options.twitterGif=false] - Whether to convert Twitter GIFs.
- * @param {boolean} [options.tiktokH265=false] - Whether to prefer H265 format for TikTok videos.
- * @returns {Promise<void>} - A promise that resolves when the request is complete.
- */
-async function processCobaltRequest(requestUrl, options = {}) {
+// Function to make a POST request to your locally hosted API
+const testShortenUrl = async (longUrl) => {
   try {
-    const apiUrl = 'https://api.cobalt.tools/api/json';
-    const headers = {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    };
+    // Make a POST request to the locally hosted API
+    const response = await axios.post('http://localhost:5000/shorten', {
+      url: longUrl, // Pass the URL as JSON in the request body
+    });
 
-    const requestBody = {
-      url: requestUrl,
-      vCodec: options.vCodec || 'h264',
-      vQuality: options.vQuality || '720',
-      aFormat: options.aFormat || 'mp3',
-      filenamePattern: options.filenamePattern || 'classic',
-      isAudioOnly: options.isAudioOnly || false,
-      isTTFullAudio: options.isTTFullAudio || false,
-      isAudioMuted: options.isAudioMuted || false,
-      dubLang: options.dubLang || false,
-      disableMetadata: options.disableMetadata || false,
-      twitterGif: options.twitterGif || false,
-      tiktokH265: options.tiktokH265 || false,
-    };
-
-    // Log the request details for debugging
-    console.log('Sending request to Cobalt API:');
-    console.log('URL:', apiUrl);
-    console.log('Headers:', headers);
-    console.log('Request Body:', requestBody);
-
-    const response = await axios.post(apiUrl, requestBody, { headers });
-
-    // Log the response details
-    console.log('Response:', response.data);
-
-    if (response.data) {
-      if (response.data.status === 'success') {
-        console.log('Download URL:', response.data.url);
-      } else {
-        console.log('Error:', response.data.text);
-      }
+    // Check and print the response from the server
+    if (response.data.shortenedUrl) {
+      console.log(`Shortened URL: ${response.data.shortenedUrl}`);
+    } else if (response.data.error) {
+      console.error(`Error: ${response.data.error}`);
+    } else {
+      console.error('Unexpected response format:', response.data);
     }
   } catch (error) {
-    console.error('Error making request:', error.message);
+    console.error('An error occurred:', error.message);
   }
-}
-
-// Example usage
-const url = 'https://youtu.be/aAZaY19tO80?si=PWqAgX7cVRUwdExi';
-const options = {
-  vCodec: 'vp9',
-  vQuality: '1080',
-  aFormat: 'wav',
-  isAudioOnly: false,
 };
 
-processCobaltRequest(url, options);
+// URL you want to shorten
+const urlToShorten = 'https://www.google.com';
+
+// Test the function
+testShortenUrl(urlToShorten);

@@ -70,6 +70,7 @@ import { makingneon } from './exports/logo/ephoto360.js'
 import { texteffect } from './exports/logo/ephoto360.js'
 import { galaxystyle } from './exports/logo/ephoto360.js'
 import { lighteffect } from './exports/logo/ephoto360.js'
+import { shortenUrl } from './exports/misc/shortener.js'
 const app = express()
 const port = process.env.PORT
 const startTime = new Date()
@@ -1208,7 +1209,20 @@ app.get('/misc/qrcode', async (req, res) => {
   }
 })
 
-const animeDir = join(process.cwd(), 'exports', 'anime') 
+app.post('/misc/shorten', async (req, res) => {
+  const longUrl = req.body.url
+  if (!longUrl) {
+    return res.status(400).json({ error: 'URL is required' })
+  }
+  const result = await shortenUrl(longUrl)
+  if (result.shortenedUrl) {
+    res.json({ shortenedUrl: result.shortenedUrl })
+  } else {
+    res.status(500).json({ error: result.error })
+  }
+})
+
+const animeDir = join(process.cwd(), 'exports', 'anime')
 
 const getRandomImage = (folder) => {
   const folderPath = join(animeDir, folder)
