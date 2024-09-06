@@ -1191,7 +1191,6 @@ app.get('/misc/base64/decode', (req, res) => {
   }
 })
 
-// QR code generation route
 app.get('/misc/qrcode', async (req, res) => {
   const { url } = req.query
 
@@ -1209,9 +1208,8 @@ app.get('/misc/qrcode', async (req, res) => {
   }
 })
 
-const animeDir = join(process.cwd(), 'exports', 'anime') // The directory containing your folders
+const animeDir = join(process.cwd(), 'exports', 'anime') 
 
-// Function to get a random image from a folder
 const getRandomImage = (folder) => {
   const folderPath = join(animeDir, folder)
   const files = readdirSync(folderPath).filter((file) => statSync(join(folderPath, file)).isFile() && /\.(jpg|jpeg|png|gif)$/i.test(file))
